@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Disclosure, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon, PlusSmIcon } from '@heroicons/react/solid'
@@ -6,6 +6,7 @@ import Header from '@/Layouts/Header'
 import Footer from '@/Layouts/Footer'
 import classNames from '@/classNames'
 import ProductCard from './ProductCard'
+import { useForm } from '@inertiajs/inertia-react'
 
 const breadcrumbs = [{ id: 1, name: 'Men', href: '#' }]
 const filters = [
@@ -13,11 +14,11 @@ const filters = [
         id: 'category',
         name: 'Category',
         options: [
-            { value: 'new-arrivals', label: 'All New Arrivals' },
-            { value: 'tees', label: 'Tees' },
-            { value: 'crewnecks', label: 'Crewnecks' },
-            { value: 'sweatshirts', label: 'Sweatshirts' },
-            { value: 'pants-shorts', label: 'Pants & Shorts' },
+            { value: 'women', label: 'Women' },
+            { value: 'men', label: 'Men' },
+            { value: 'face', label: 'Face' },
+            { value: 'signature', label: 'Signature' },
+            { value: 'candles', label: 'Candles' },
         ],
     },
 ]
@@ -68,6 +69,37 @@ const products = [
 
 export default function ProductList(props) {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+
+    const { data, setData, get } = useForm({
+        categories: [],
+    })
+
+    const propCategories = props.filters.categories;
+
+
+
+    useEffect(() => {
+        if (propCategories) {
+            setData({ categories: propCategories });
+        }
+
+    }, [propCategories]);
+
+
+
+    const onChangeHandler = (e) => {
+        let oldCategories = data.categories;
+
+        if (oldCategories.includes(e.target.value)) {
+            const index = oldCategories.indexOf(e.target.value);
+            oldCategories.splice(index, 1);
+        } else {
+            oldCategories.push(e.target.value);
+        }
+
+        setData({ categories: oldCategories });
+        get(route('search'))
+    }
 
     return (
         <div className="bg-white">
@@ -136,9 +168,11 @@ export default function ProductList(props) {
                                                                     <div key={option.value} className="flex items-center">
                                                                         <input
                                                                             id={`${section.id}-${optionIdx}-mobile`}
-                                                                            name={`${section.id}[]`}
+                                                                            name={`categories[]`}
+                                                                            onChange={onChangeHandler}
                                                                             defaultValue={option.value}
                                                                             type="checkbox"
+                                                                            checked={data.categories.includes(option.value) ? true : false}
                                                                             className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
                                                                         />
                                                                         <label
@@ -222,9 +256,11 @@ export default function ProductList(props) {
                                                             <div key={option.value} className="flex items-center">
                                                                 <input
                                                                     id={`${section.id}-${optionIdx}`}
-                                                                    name={`${section.id}[]`}
+                                                                    name={`categories[]`}
+                                                                    onChange={onChangeHandler}
                                                                     defaultValue={option.value}
                                                                     type="checkbox"
+                                                                    checked={data.categories.includes(option.value) ? true : false}
                                                                     className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
                                                                 />
                                                                 <label htmlFor={`${section.id}-${optionIdx}`} className="ml-3 text-sm text-gray-600">
