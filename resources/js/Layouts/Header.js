@@ -12,53 +12,48 @@ const navigation = {
                 {
                     name: 'New Arrivals',
                     href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
+                    imageSrc: 'https://i1.adis.ws/i/tom_ford/T6C7_OC_OS_A?$large$&bg=rgb(255,255,255)',
                     imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
                 },
                 {
-                    name: 'Basic Tees',
+                    name: 'Our Favorite',
                     href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
+                    imageSrc: 'https://i1.adis.ws/i/tom_ford/T0RN-01-0001_OC_OS_A?$large$&bg=rgb(255,255,255)',
                     imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
                 },
             ],
             sections: [
                 {
-                    id: 'clothing',
-                    name: 'Clothing',
+                    id: 'fragrance',
+                    name: 'Fragrance',
                     items: [
-                        { name: 'Tops', href: '#' },
-                        { name: 'Dresses', href: '#' },
-                        { name: 'Pants', href: '#' },
-                        { name: 'Denim', href: '#' },
-                        { name: 'Sweaters', href: '#' },
-                        { name: 'T-Shirts', href: '#' },
-                        { name: 'Jackets', href: '#' },
-                        { name: 'Activewear', href: '#' },
-                        { name: 'Browse All', href: '#' },
+                        { name: 'BEST SELLERS', href: '#' },
+                        { name: 'DISCOVER PRIVATE BLEND', href: '#' },
+                        { name: 'PRIVATE BLEND', href: '#' },
+                        { name: 'SIGNATURE', href: '#' },
+                        { name: 'CANDLES', href: '#' },
                     ],
                 },
                 {
-                    id: 'accessories',
-                    name: 'Accessories',
+                    id: 'FACE',
+                    name: 'FACE',
                     items: [
-                        { name: 'Watches', href: '#' },
-                        { name: 'Wallets', href: '#' },
-                        { name: 'Bags', href: '#' },
-                        { name: 'Sunglasses', href: '#' },
-                        { name: 'Hats', href: '#' },
-                        { name: 'Belts', href: '#' },
+                        { name: 'BRONZER', href: '#' },
+                        { name: 'BRUSHES', href: '#' },
+                        { name: 'CHEEK COLOR', href: '#' },
+                        { name: 'CONCEALER', href: '#' },
+                        { name: 'FOUNDATION', href: '#' },
+                        { name: 'POWDER', href: '#' },
                     ],
                 },
                 {
-                    id: 'brands',
-                    name: 'Brands',
+                    id: 'LIPS',
+                    name: 'LIPS',
                     items: [
-                        { name: 'Full Nelson', href: '#' },
-                        { name: 'My Way', href: '#' },
-                        { name: 'Re-Arranged', href: '#' },
-                        { name: 'Counterfeit', href: '#' },
-                        { name: 'Significant Other', href: '#' },
+                        { name: 'LIP COLOR', href: '#' },
+                        { name: 'BOYS & GIRLS', href: '#' },
+                        { name: 'LIP LACQUER', href: '#' },
+                        { name: 'LIP GLOSS', href: '#' },
                     ],
                 },
             ],
@@ -70,59 +65,44 @@ const navigation = {
                 {
                     name: 'New Arrivals',
                     href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+                    imageSrc: 'https://i1.adis.ws/i/tom_ford/T3H9-01-0001_OC_OS_A?$large$&bg=rgb(255,255,255)',
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
                 },
                 {
-                    name: 'Artwork Tees',
+                    name: 'Our Favorite',
                     href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                    imageSrc: 'https://i1.adis.ws/i/tom_ford/T660_OC_OS_A?$large$&bg=rgb(255,255,255)',
                     imageAlt:
                         'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
                 },
             ],
             sections: [
                 {
-                    id: 'clothing',
-                    name: 'Clothing',
+                    id: 'fragrance',
+                    name: 'Fragrance',
                     items: [
-                        { name: 'Tops', href: '#' },
-                        { name: 'Pants', href: '#' },
-                        { name: 'Sweaters', href: '#' },
-                        { name: 'T-Shirts', href: '#' },
-                        { name: 'Jackets', href: '#' },
-                        { name: 'Activewear', href: '#' },
-                        { name: 'Browse All', href: '#' },
+                        { name: 'BEST SELLERS', href: '#' },
+                        { name: 'DISCOVER PRIVATE BLEND', href: '#' },
+                        { name: 'PRIVATE BLEND', href: '#' },
+                        { name: 'SIGNATURE', href: '#' },
+                        { name: 'CANDLES', href: '#' },
                     ],
                 },
                 {
-                    id: 'accessories',
-                    name: 'Accessories',
+                    id: 'MEN',
+                    name: 'MEN',
                     items: [
-                        { name: 'Watches', href: '#' },
-                        { name: 'Wallets', href: '#' },
-                        { name: 'Bags', href: '#' },
-                        { name: 'Sunglasses', href: '#' },
-                        { name: 'Hats', href: '#' },
-                        { name: 'Belts', href: '#' },
-                    ],
-                },
-                {
-                    id: 'brands',
-                    name: 'Brands',
-                    items: [
-                        { name: 'Re-Arranged', href: '#' },
-                        { name: 'Counterfeit', href: '#' },
-                        { name: 'Full Nelson', href: '#' },
-                        { name: 'My Way', href: '#' },
+                        { name: 'BEARD', href: '#' },
+                        { name: 'BODY', href: '#' },
+                        { name: 'FACE', href: '#' },
                     ],
                 },
             ],
         },
     ],
     pages: [
-        { name: 'Company', href: '#' },
-        { name: 'Stores', href: '#' },
+        { name: 'Company', href: 'https://www.elcompanies.com/en/our-brands/tom-ford-beauty' },
+        { name: 'Stores', href: 'https://www.tomford.com/stores' },
     ],
 }
 
@@ -412,26 +392,6 @@ export default function Header(props) {
                                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                                     <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                         Create account
-                                    </a>
-                                </div>
-
-                                <div className="hidden lg:ml-8 lg:flex">
-                                    <a href="#" className="text-gray-700 hover:text-gray-800 flex items-center">
-                                        <img
-                                            src="https://tailwindui.com/img/flags/flag-canada.svg"
-                                            alt=""
-                                            className="w-5 h-auto block flex-shrink-0"
-                                        />
-                                        <span className="ml-3 block text-sm font-medium">CAD</span>
-                                        <span className="sr-only">, change currency</span>
-                                    </a>
-                                </div>
-
-                                {/* Search */}
-                                <div className="flex lg:ml-6">
-                                    <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
-                                        <span className="sr-only">Search</span>
-                                        <SearchIcon className="w-6 h-6" aria-hidden="true" />
                                     </a>
                                 </div>
 

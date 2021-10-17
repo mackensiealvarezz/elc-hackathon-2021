@@ -5,21 +5,21 @@ const categories = [
         imageSrc: 'https://i1.adis.ws/i/tom_ford/T726_INITIATE_OS_A?$large$&bg=rgb(255,255,255)',
     },
     {
-        name: 'Productivity',
+        name: 'Fragrance',
         href: '#',
         imageSrc: 'https://i1.adis.ws/i/tom_ford/T0-TOBACCO_OC_50ML_A?$large$&bg=rgb(255,255,255)',
     },
     {
-        name: 'Workspace',
+        name: 'Foundation',
         href: '#',
         imageSrc: 'https://i1.adis.ws/i/tom_ford/T7N1_MINIMALIST_OS_A?$large$&bg=rgb(255,255,255)',
     },
     {
-        name: 'Accessories',
+        name: 'Men',
         href: '#',
         imageSrc: 'https://i1.adis.ws/i/tom_ford/T443_OC_OS_A?$large$&bg=rgb(255,255,255)',
     },
-    { name: 'Sale', href: '#', imageSrc: 'https://i1.adis.ws/i/tom_ford/T55J_OC_OS_A?$large$&bg=rgb(255,255,255)' },
+    { name: 'Candle', href: '#', imageSrc: 'https://i1.adis.ws/i/tom_ford/T55J_OC_OS_A?$large$&bg=rgb(255,255,255)' },
 ]
 
 
