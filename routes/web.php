@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\ProductDetailController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -17,9 +18,12 @@ use Inertia\Inertia;
 */
 
 Route::get('/', [LandingPageController::class, 'index']);
+Route::get('/ProductDetail', [ProductDetailController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+
+
+require __DIR__ . '/auth.php';
