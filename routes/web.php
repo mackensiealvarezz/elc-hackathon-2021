@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
-Route::get('/ProductDetail', [ProductDetailController::class, 'index']);
+Route::get('/product/{name}', [ProductDetailController::class, 'index']);
 Route::get('/ShoppingCart', [ShoppingCartController::class, 'index']);
 Route::get('/ProductList', [ProductListController::class, 'index']);
 

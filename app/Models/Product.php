@@ -20,4 +20,9 @@ class Product extends Model
     protected $casts = [
         'categories' => 'array'
     ];
+
+    public function carts()
+    {
+        return $this->belongsToMany(Cart::class, 'cart_products', 'cart_id', 'product_id');
+    }
 }
