@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { MenuIcon, SearchIcon, ShoppingBagIcon, XIcon } from '@heroicons/react/outline'
 import classNames from '@/classNames'
+import { Link } from '@inertiajs/inertia-react'
 
 const navigation = {
     categories: [
@@ -109,6 +110,8 @@ const navigation = {
 
 export default function Header(props) {
     const [open, setOpen] = useState(false)
+    const [showPin, setShowPin] = useState(false)
+
     return (
         <Fragment>
             {/* Mobile menu */}
@@ -265,11 +268,11 @@ export default function Header(props) {
 
                             {/* Logo */}
                             <div className="ml-4 flex lg:ml-0">
-                                <a href="#">
-                                    <span className="sr-only">Workflow</span>
+                                <a href={route('landing')}>
+                                    <span className="sr-only">Tom Ford Beauty</span>
                                     <img
                                         className="h-8 w-auto"
-                                        src="https://tailwindui.com/img/logos/workflow-mark.svg?color=yellow&shade=600"
+                                        src="https://media.elcompanies.com/images/e/estee-lauder-companies/universal/our-brands/tom-ford-beauty/tom-ford-beauty.png?h=140&la=en&w=720"
                                         alt=""
                                     />
                                 </a>
@@ -385,15 +388,31 @@ export default function Header(props) {
                             </Popover.Group>
 
                             <div className="ml-auto flex items-center">
-                                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                    <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                        Sign in
-                                    </a>
-                                    <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                                    <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                        Create account
-                                    </a>
-                                </div>
+
+                                {props.auth.user ? (
+                                    <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                                        <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                            Welcome {props.auth.user.name}
+                                        </a>
+                                        <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                                        <span className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                            Pin:
+                                            <button className="font-bold" onClick={() => setShowPin(!showPin)} >{showPin ? props.auth.user.pin : '***'}</button>
+                                        </span>
+                                        <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                                        <Link href={route('logout')} method="post" as="button" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                            Log Out
+                                        </Link>
+                                    </div>
+                                ) : (
+                                    <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                                        <Link href={route('login')} className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                            Sign in
+                                        </Link>
+                                    </div>
+                                )}
+
+
 
                                 {/* Cart */}
                                 <div className="ml-4 flow-root lg:ml-6">
@@ -413,7 +432,7 @@ export default function Header(props) {
 
                 {/* Hero section */}
                 {props.children}
-            </header>
-        </Fragment>
+            </header >
+        </Fragment >
     )
 }

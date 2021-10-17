@@ -66,7 +66,7 @@ const products = [
 
 
 
-export default function ProductList() {
+export default function ProductList(props) {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
     return (
@@ -74,7 +74,7 @@ export default function ProductList() {
 
 
             <div>
-                <Header>
+                <Header auth={props.auth}>
 
                     {/* Mobile filter dialog */}
                     <Transition.Root show={mobileFiltersOpen} as={Fragment}>
