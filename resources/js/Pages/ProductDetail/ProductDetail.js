@@ -1,6 +1,6 @@
+import { useState } from 'react'
 import Header from '@/Layouts/Header'
 import Footer from '@/Layouts/Footer'
-import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/solid'
 
 

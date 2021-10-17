@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\ProductDetailController;
+use App\Http\Controllers\ShoppingCartController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,6 +20,7 @@ use Inertia\Inertia;
 
 Route::get('/', [LandingPageController::class, 'index']);
 Route::get('/ProductDetail', [ProductDetailController::class, 'index']);
+Route::get('/ShoppingCart', [ShoppingCartController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
