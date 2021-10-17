@@ -28,33 +28,33 @@ const navigation = {
                     id: 'fragrance',
                     name: 'Fragrance',
                     items: [
-                        { name: 'BEST SELLERS', href: '#' },
-                        { name: 'DISCOVER PRIVATE BLEND', href: '#' },
-                        { name: 'PRIVATE BLEND', href: '#' },
-                        { name: 'SIGNATURE', href: '#' },
-                        { name: 'CANDLES', href: '#' },
+                        { name: 'BEST SELLERS', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'DISCOVER PRIVATE BLEND', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'PRIVATE BLEND', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'SIGNATURE', href: 'search', data: { categories: ['women', 'fragrance', 'signature'] } },
+                        { name: 'CANDLES', href: 'search', data: { categories: ['women', 'fragrance', 'candles'] } },
                     ],
                 },
                 {
                     id: 'FACE',
                     name: 'FACE',
                     items: [
-                        { name: 'BRONZER', href: '#' },
-                        { name: 'BRUSHES', href: '#' },
-                        { name: 'CHEEK COLOR', href: '#' },
-                        { name: 'CONCEALER', href: '#' },
-                        { name: 'FOUNDATION', href: '#' },
-                        { name: 'POWDER', href: '#' },
+                        { name: 'BRONZER', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'BRUSHES', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'CHEEK COLOR', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'CONCEALER', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'FOUNDATION', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'POWDER', href: 'search', data: { categories: ['women', 'fragrance'] } },
                     ],
                 },
                 {
                     id: 'LIPS',
                     name: 'LIPS',
                     items: [
-                        { name: 'LIP COLOR', href: '#' },
-                        { name: 'BOYS & GIRLS', href: '#' },
-                        { name: 'LIP LACQUER', href: '#' },
-                        { name: 'LIP GLOSS', href: '#' },
+                        { name: 'LIP COLOR', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'BOYS & GIRLS', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'LIP LACQUER', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'LIP GLOSS', href: 'search', data: { categories: ['women', 'fragrance'] } },
                     ],
                 },
             ],
@@ -82,20 +82,20 @@ const navigation = {
                     id: 'fragrance',
                     name: 'Fragrance',
                     items: [
-                        { name: 'BEST SELLERS', href: '#' },
-                        { name: 'DISCOVER PRIVATE BLEND', href: '#' },
-                        { name: 'PRIVATE BLEND', href: '#' },
-                        { name: 'SIGNATURE', href: '#' },
-                        { name: 'CANDLES', href: '#' },
+                        { name: 'BEST SELLERS', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'DISCOVER PRIVATE BLEND', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'PRIVATE BLEND', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'SIGNATURE', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'CANDLES', href: 'search', data: { categories: ['women', 'fragrance'] } },
                     ],
                 },
                 {
                     id: 'MEN',
                     name: 'MEN',
                     items: [
-                        { name: 'BEARD', href: '#' },
-                        { name: 'BODY', href: '#' },
-                        { name: 'FACE', href: '#' },
+                        { name: 'BEARD', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'BODY', href: 'search', data: { categories: ['women', 'fragrance'] } },
+                        { name: 'FACE', href: 'search', data: { categories: ['women', 'fragrance'] } },
                     ],
                 },
             ],
@@ -200,7 +200,7 @@ export default function Header(props) {
                                                     >
                                                         {section.items.map((item) => (
                                                             <li key={item.name} className="flow-root">
-                                                                <a href={item.href} className="-m-2 p-2 block text-gray-500">
+                                                                <a href={route(item.href)} method="get" data={item.data} className="-m-2 p-2 block text-gray-500">
                                                                     {item.name}
                                                                 </a>
                                                             </li>
@@ -356,9 +356,9 @@ export default function Header(props) {
                                                                                     >
                                                                                         {section.items.map((item) => (
                                                                                             <li key={item.name} className="flex">
-                                                                                                <a href={item.href} className="hover:text-gray-800">
+                                                                                                <Link href={route(item.href)} method="get" data={item.data} className="hover:text-gray-800">
                                                                                                     {item.name}
-                                                                                                </a>
+                                                                                                </Link>
                                                                                             </li>
                                                                                         ))}
                                                                                     </ul>

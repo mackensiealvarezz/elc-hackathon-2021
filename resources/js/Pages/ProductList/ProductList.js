@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Disclosure, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon, PlusSmIcon } from '@heroicons/react/solid'
@@ -6,6 +6,7 @@ import Header from '@/Layouts/Header'
 import Footer from '@/Layouts/Footer'
 import classNames from '@/classNames'
 import ProductCard from './ProductCard'
+import { useForm } from '@inertiajs/inertia-react'
 
 const breadcrumbs = [{ id: 1, name: 'Men', href: '#' }]
 const filters = [
@@ -13,61 +14,48 @@ const filters = [
         id: 'category',
         name: 'Category',
         options: [
-            { value: 'new-arrivals', label: 'All New Arrivals' },
-            { value: 'tees', label: 'Tees' },
-            { value: 'crewnecks', label: 'Crewnecks' },
-            { value: 'sweatshirts', label: 'Sweatshirts' },
-            { value: 'pants-shorts', label: 'Pants & Shorts' },
+            { value: 'women', label: 'Women' },
+            { value: 'men', label: 'Men' },
+            { value: 'face', label: 'Face' },
+            { value: 'signature', label: 'Signature' },
+            { value: 'candles', label: 'Candles' },
         ],
     },
 ]
-const products = [
-    {
-        id: 1,
-        name: 'Basic Tee 8-Pack',
-        href: '#',
-        price: '$256',
-        description: 'Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.',
-        options: '8 colors',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg',
-        imageAlt: 'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
-    },
-    {
-        id: 2,
-        name: 'Basic Tee',
-        href: '#',
-        price: '$32',
-        description: 'Look like a visionary CEO and wear the same black t-shirt every day.',
-        options: 'Black',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-02.jpg',
-        imageAlt: 'Front of plain black t-shirt.',
-    },
-    {
-        id: 3,
-        name: 'Basic Tee',
-        href: '#',
-        price: '$32',
-        description: 'Look like a visionary CEO and wear the same black t-shirt every day.',
-        options: 'Black',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-02.jpg',
-        imageAlt: 'Front of plain black t-shirt.',
-    },
-    {
-        id: 4,
-        name: 'Basic Tee',
-        href: '#',
-        price: '$32',
-        description: 'Look like a visionary CEO and wear the same black t-shirt every day.',
-        options: 'Black',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-02.jpg',
-        imageAlt: 'Front of plain black t-shirt.',
-    },
-]
-
-
 
 export default function ProductList(props) {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+
+    const { data, setData, get } = useForm({
+        categories: [],
+    })
+
+    const propCategories = props.filters.categories;
+
+
+
+    useEffect(() => {
+        if (propCategories) {
+            setData({ categories: propCategories });
+        }
+
+    }, [propCategories]);
+
+
+
+    const onChangeHandler = (e) => {
+        let oldCategories = data.categories;
+
+        if (oldCategories.includes(e.target.value)) {
+            const index = oldCategories.indexOf(e.target.value);
+            oldCategories.splice(index, 1);
+        } else {
+            oldCategories.push(e.target.value);
+        }
+
+        setData({ categories: oldCategories });
+        get(route('search'))
+    }
 
     return (
         <div className="bg-white">
@@ -136,9 +124,11 @@ export default function ProductList(props) {
                                                                     <div key={option.value} className="flex items-center">
                                                                         <input
                                                                             id={`${section.id}-${optionIdx}-mobile`}
-                                                                            name={`${section.id}[]`}
+                                                                            name={`categories[]`}
+                                                                            onChange={onChangeHandler}
                                                                             defaultValue={option.value}
                                                                             type="checkbox"
+                                                                            checked={data.categories.includes(option.value) ? true : false}
                                                                             className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
                                                                         />
                                                                         <label
@@ -183,7 +173,7 @@ export default function ProductList(props) {
                                 ))}
                                 <li className="text-sm">
                                     <a href="#" aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
-                                        New Arrivals
+                                        Products
                                     </a>
                                 </li>
                             </ol>
@@ -192,9 +182,9 @@ export default function ProductList(props) {
 
                     <main className="max-w-2xl mx-auto px-4 lg:max-w-7xl lg:px-8">
                         <div className="border-b border-gray-200 pt-24 pb-10">
-                            <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">New Arrivals</h1>
+                            <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">Products</h1>
                             <p className="mt-4 text-base text-gray-500">
-                                Checkout out the latest release of Basic Tees, new and improved with four openings!
+                                Checkout out the latest releases.
                             </p>
                         </div>
 
@@ -222,9 +212,11 @@ export default function ProductList(props) {
                                                             <div key={option.value} className="flex items-center">
                                                                 <input
                                                                     id={`${section.id}-${optionIdx}`}
-                                                                    name={`${section.id}[]`}
+                                                                    name={`categories[]`}
+                                                                    onChange={onChangeHandler}
                                                                     defaultValue={option.value}
                                                                     type="checkbox"
+                                                                    checked={data.categories.includes(option.value) ? true : false}
                                                                     className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
                                                                 />
                                                                 <label htmlFor={`${section.id}-${optionIdx}`} className="ml-3 text-sm text-gray-600">
@@ -246,7 +238,7 @@ export default function ProductList(props) {
                                 </h2>
 
                                 <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
-                                    {products.map((product) => (
+                                    {props.products.map((product) => (
                                         <ProductCard key={product.id} product={product} />
                                     ))}
                                 </div>
