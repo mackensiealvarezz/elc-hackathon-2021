@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from '@/Layouts/Header'
 import Footer from '@/Layouts/Footer'
 import { StarIcon } from '@heroicons/react/solid'
+import { useForm } from '@inertiajs/inertia-react'
 
 
 const product = {
@@ -19,6 +20,15 @@ function classNames(...classes) {
 }
 
 export default function ProductDetail(props) {
+
+    const { data, setData, post } = useForm({
+        product_id: props.product.id,
+    })
+
+    const onClickHandler = (e) => {
+        e.preventDefault()
+        post(route('addToBag'))
+    }
 
     return (
         <div className="bg-white">
@@ -107,7 +117,7 @@ export default function ProductDetail(props) {
                                 Product options
                             </h2>
 
-                            <form>
+                            <form onSubmit={onClickHandler}>
                                 <div className="mt-10">
                                     <button
                                         type="submit"

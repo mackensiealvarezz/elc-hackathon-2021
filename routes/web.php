@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 Route::get('/product/{name}', [ProductDetailController::class, 'index']);
+Route::post('/addToBag', [ProductDetailController::class, 'addToBag'])->middleware(['auth', 'verified'])->name('addToBag');
 Route::get('/ShoppingCart', [ShoppingCartController::class, 'index']);
 Route::get('/search', [ProductListController::class, 'index'])->name('search');
+
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
