@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Header from '@/Layouts/Header'
 import Footer from '@/Layouts/Footer'
 import ShopByCategory from './ShopByCategory'
@@ -6,6 +7,18 @@ import TrendingProducts from './TrendingProducts'
 import CallToActionSection from './CallToActionSection'
 
 export default function LandingPage(props) {
+
+
+    // useEffect(() => {
+
+
+    //     Echo.private(`Products`)
+    //         .listen('AddProduct', (e) => {
+    //             console.log("yello");
+    //         })
+
+    // }, []);
+
 
     return (
         <div className="bg-white">
