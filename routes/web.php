@@ -20,14 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 Route::get('/product/{name}', [ProductDetailController::class, 'index'])->name('product');
 Route::post('/addToBag', [ProductDetailController::class, 'addToBag'])->middleware(['auth', 'verified'])->name('addToBag');
-Route::get('/ShoppingCart', [ShoppingCartController::class, 'index']);
+Route::post('/deleteFromBag', [ShoppingCartController::class, 'deleteFromBag'])->middleware(['auth', 'verified'])->name('deleteFromBag');
+Route::get('/cart', [ShoppingCartController::class, 'index'])->middleware(['auth', 'verified'])->name('cart');
 Route::get('/search', [ProductListController::class, 'index'])->name('search');
-
-
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-
 
 require __DIR__ . '/auth.php';

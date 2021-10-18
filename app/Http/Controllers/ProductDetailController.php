@@ -24,7 +24,7 @@ class ProductDetailController extends Controller
 
         $cart->products()->attach($request->product_id);
 
-        $cart->update(['total' => $cart->products()->sum('price')]);
+        $cart->updateTotal();
 
         return back();
     }

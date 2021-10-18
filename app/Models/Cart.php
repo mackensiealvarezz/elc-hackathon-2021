@@ -16,6 +16,13 @@ class Cart extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'cart_products', 'cart_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'cart_products', 'cart_id', 'product_id')->withPivot('id');
     }
+
+    public function updateTotal()
+    {
+        $this->update(['total' => $this->products()->sum('price')]);
+    }
+
+
 }
