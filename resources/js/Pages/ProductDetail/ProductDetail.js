@@ -2,32 +2,33 @@ import { useState } from 'react'
 import Header from '@/Layouts/Header'
 import Footer from '@/Layouts/Footer'
 import { StarIcon } from '@heroicons/react/solid'
+import { useForm } from '@inertiajs/inertia-react'
 
 
 const product = {
-    name: 'Everyday Ruck Snack',
-    href: '#',
-    price: '$220',
-    description:
-        "Don't compromise on snack-carrying capacity with this lightweight and spacious bag. The drawstring top keeps all your favorite chips, crisps, fries, biscuits, crackers, and cookies secure.",
-    imageSrc: 'https://images-ext-1.discordapp.net/external/dJzo1tTZJ2eSLNW1NdO_MQL9KbBxF93wTZJLiHlJYAY/%3F%24large%24%26bg%3Drgb%28255%2C255%2C255%29/https/i1.adis.ws/i/tom_ford/T1-CAFE-ROSE_OC_50ML_B?width=720&height=509',
-    imageAlt: 'Model wearing light green backpack with black canvas straps and front zipper pouch.',
+
     breadcrumbs: [
         { id: 1, name: 'Travel', href: '#' },
         { id: 2, name: 'Bags', href: '#' },
     ],
-    sizes: [
-        { name: '18L', description: 'Perfect for a reasonable amount of snacks.' },
-        { name: '20L', description: 'Enough room for a serious amount of snacks.' },
-    ],
+
 }
-const reviews = { average: 4, totalCount: 1624 }
+const reviews = { average: 5, totalCount: 1624 }
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function ProductDetail(props) {
+
+    const { data, setData, post } = useForm({
+        product_id: props.product.id,
+    })
+
+    const onClickHandler = (e) => {
+        e.preventDefault()
+        post(route('addToBag'))
+    }
 
     return (
         <div className="bg-white">
@@ -61,7 +62,7 @@ export default function ProductDetail(props) {
                         </nav>
 
                         <div className="mt-4">
-                            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{product.name}</h1>
+                            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{props.product.name}</h1>
                         </div>
 
                         <section aria-labelledby="information-heading" className="mt-4">
@@ -70,7 +71,7 @@ export default function ProductDetail(props) {
                             </h2>
 
                             <div className="flex items-center">
-                                <p className="text-lg text-gray-900 sm:text-xl">{product.price}</p>
+                                <p className="text-lg text-gray-900 sm:text-xl">${props.product.price}</p>
 
                                 <div className="pl-4 ml-4 border-l border-gray-300">
                                     <h2 className="sr-only">Reviews</h2>
@@ -96,7 +97,7 @@ export default function ProductDetail(props) {
                             </div>
 
                             <div className="mt-4 space-y-6">
-                                <p className="text-base text-gray-500">{product.description}</p>
+                                <p className="text-base text-gray-500">{props.product.description}</p>
                             </div>
 
                         </section>
@@ -105,7 +106,7 @@ export default function ProductDetail(props) {
                     {/* Product image */}
                     <div className="mt-10 lg:mt-0 lg:col-start-2 lg:row-span-2 lg:self-center">
                         <div className="overflow-hidden rounded-lg aspect-w-1 aspect-h-1">
-                            <img src={product.imageSrc} alt={product.imageAlt} className="object-cover object-center w-full h-full" />
+                            <img src={props.product.image} className="object-cover object-center w-full h-full" />
                         </div>
                     </div>
 
@@ -116,7 +117,7 @@ export default function ProductDetail(props) {
                                 Product options
                             </h2>
 
-                            <form>
+                            <form onSubmit={onClickHandler}>
                                 <div className="mt-10">
                                     <button
                                         type="submit"
