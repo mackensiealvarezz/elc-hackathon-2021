@@ -13,7 +13,7 @@ export default function ProductCard({ product }) {
             </div>
             <div className="flex-1 p-4 space-y-2 flex flex-col">
                 <h3 className="text-sm font-medium text-gray-900">
-                    <a href={product.href}>
+                    <a href={route('product', product.name)}>
                         <span aria-hidden="true" className="absolute inset-0" />
                         {product.name}
                     </a>

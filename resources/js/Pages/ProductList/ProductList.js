@@ -16,6 +16,8 @@ const filters = [
         options: [
             { value: 'women', label: 'Women' },
             { value: 'men', label: 'Men' },
+            { value: 'fragrance', label: 'Fragrance' },
+            { value: 'best_sellers', label: 'Best Sellers' },
             { value: 'face', label: 'Face' },
             { value: 'signature', label: 'Signature' },
             { value: 'candles', label: 'Candles' },
