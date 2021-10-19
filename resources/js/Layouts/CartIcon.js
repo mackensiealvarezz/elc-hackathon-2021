@@ -10,8 +10,7 @@ export default function CartIcon({ cartInfo }) {
         console.log('ran');
         if (cartId) {
             Echo.private(`Cart.${cartId}`)
-                .listen('ProductAddedToCart', (e) => {
-                    // Inertia.visit(route('cart'));
+                .listen('CartUpdatedEvent', (e) => {
                     setCount(e.count)
                 })
 

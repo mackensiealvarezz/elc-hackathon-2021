@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Events\CartUpdatedEvent;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Cart extends Model
 {
@@ -17,6 +18,20 @@ class Cart extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class, 'cart_products', 'cart_id', 'product_id')->withPivot('id');
+    }
+
+    public function addProduct($product_id)
+    {
+        $this->products()->attach($product_id);
+        $this->updateTotal();
+        event(new CartUpdatedEvent($this));
+    }
+
+    public function deleteProduct($product_id)
+    {
+        $this->products()->detach($product_id);
+        $this->updateTotal();
+        event(new CartUpdatedEvent($this));
     }
 
     public function updateTotal()

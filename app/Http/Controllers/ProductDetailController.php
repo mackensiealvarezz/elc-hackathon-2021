@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\AddProduct;
-use App\Events\ProductAddedToCart;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -24,11 +22,7 @@ class ProductDetailController extends Controller
             'user_id' => $request->user()->id
         ]);
 
-        $cart->products()->attach($request->product_id);
-
-        event(new ProductAddedToCart($cart->id,$cart->products()->count()));
-
-        $cart->updateTotal();
+        $cart->addProduct($request->product_id);
 
         return back();
     }

@@ -13,23 +13,20 @@ use Illuminate\Broadcasting\InteractsWithBroadcasting;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
-class ProductAddedToCart implements ShouldBroadcastNow
+class CartUpdatedEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels, InteractsWithBroadcasting;
 
-    public $cartId;
-    public $count;
-
+    public $cart;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($cartId,$count)
+    public function __construct(Cart $cart)
     {
         $this->broadcastVia('pusher');
-        $this->cartId = $cartId;
-        $this->count = $count;
+        $this->cart = $cart;
     }
 
     /**
@@ -39,6 +36,13 @@ class ProductAddedToCart implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('Cart.'.$this->cartId);
+        return new PrivateChannel('Cart.'.$this->cart->id);
+    }
+
+    public function broadcastWith()
+    {
+        return ['cartId' => $this->cart->id,
+                'count'  => $this->cart->products()->count()
+        ];
     }
 }
