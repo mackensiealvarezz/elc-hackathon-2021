@@ -1,5 +1,7 @@
 import { CheckIcon, ClockIcon, QuestionMarkCircleIcon, XIcon as XIconSolid } from '@heroicons/react/solid'
 import { Link, useForm } from '@inertiajs/inertia-react'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function CartItem({ product }) {
 
     const { data, setData, post } = useForm({
@@ -8,7 +10,9 @@ export default function CartItem({ product }) {
     })
 
     const onClickHandler = (e) => {
-        post(route('deleteFromBag'));
+        post(route('deleteFromBag'))
+        toast("Removed from bag!")
+
     }
 
     return (
@@ -40,6 +44,7 @@ export default function CartItem({ product }) {
                             <button onClick={onClickHandler} type="button" className="inline-flex p-2 -m-2 text-gray-400 hover:text-gray-500">
                                 <span className="sr-only">Remove</span>
                                 <XIconSolid className="w-5 h-5" aria-hidden="true" />
+
                             </button>
                         </div>
                     </div>
