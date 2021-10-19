@@ -3,7 +3,7 @@ import Header from '@/Layouts/Header'
 import Footer from '@/Layouts/Footer'
 import { StarIcon } from '@heroicons/react/solid'
 import { useForm } from '@inertiajs/inertia-react'
-
+import { toast } from 'react-toastify';
 
 const product = {
 
@@ -19,6 +19,8 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
+
+
 export default function ProductDetail(props) {
 
     const { data, setData, post } = useForm({
@@ -28,7 +30,12 @@ export default function ProductDetail(props) {
     const onClickHandler = (e) => {
         e.preventDefault()
         post(route('addToBag'))
+        toast("Added to bag!")
+
     }
+
+
+
 
     return (
         <div className="bg-white">

@@ -30,6 +30,7 @@
         "tailwindcss": "^2.1.2"
     },
     "dependencies": {
-        "@heroicons/react": "^1.0.4"
+        "@heroicons/react": "^1.0.4",
+        "react-toastify": "^8.0.3"
     }
 }
