@@ -1,3 +1,5 @@
+import { Link } from "@inertiajs/inertia-react";
+
 export default function CallToActionSection() {
     return (
         <section aria-labelledby="sale-heading">
@@ -7,14 +9,12 @@ export default function CallToActionSection() {
                         <div className="relative pt-48 pb-16 sm:pb-24">
                             <div>
                                 <h2 id="sale-heading" className="text-4xl font-extrabold tracking-tight text-white md:text-5xl">
-                                    Final Stock.
-                                    <br />
-                                    Up to 50% off.
+                                    Up to 20% off.
                                 </h2>
                                 <div className="mt-6 text-base">
-                                    <a href="#" className="font-semibold text-white">
+                                    <Link href={route('search')} className="font-semibold text-white">
                                         Shop the sale<span aria-hidden="true"> &rarr;</span>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
 

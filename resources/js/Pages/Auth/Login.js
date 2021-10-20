@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 import ValidationErrors from '@/Components/ValidationErrors';
+
 export default function Login() {
 
 
@@ -33,11 +34,13 @@ export default function Login() {
             <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
                 <div className="mx-auto w-full max-w-sm lg:w-96">
                     <div>
-                        <img
-                            className="h-12 w-auto"
-                            src="https://media.elcompanies.com/images/e/estee-lauder-companies/universal/our-brands/tom-ford-beauty/tom-ford-beauty.png?h=140&la=en&w=720"
-                            alt="Workflow"
-                        />
+                        <Link href={route('landing')}>
+                            <img
+                                className="h-12 w-auto"
+                                src="https://media.elcompanies.com/images/e/estee-lauder-companies/universal/our-brands/tom-ford-beauty/tom-ford-beauty.png?h=140&la=en&w=720"
+                                alt="Workflow"
+                            />
+                        </Link>
 
                         <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
                         <p className="mt-2 py-2 text-sm font-bold text-gray-600">
