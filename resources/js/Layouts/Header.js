@@ -13,13 +13,13 @@ const navigation = {
             featured: [
                 {
                     name: 'New Arrivals',
-                    href: '#',
+                    href: 'search',
                     imageSrc: 'https://i1.adis.ws/i/tom_ford/T6C7_OC_OS_A?$large$&bg=rgb(255,255,255)',
                     imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
                 },
                 {
                     name: 'Our Favorite',
-                    href: '#',
+                    href: 'search',
                     imageSrc: 'https://i1.adis.ws/i/tom_ford/T0RN-01-0001_OC_OS_A?$large$&bg=rgb(255,255,255)',
                     imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
                 },
@@ -66,13 +66,13 @@ const navigation = {
             featured: [
                 {
                     name: 'New Arrivals',
-                    href: '#',
+                    href: 'search',
                     imageSrc: 'https://i1.adis.ws/i/tom_ford/T3H9-01-0001_OC_OS_A?$large$&bg=rgb(255,255,255)',
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
                 },
                 {
                     name: 'Our Favorite',
-                    href: '#',
+                    href: 'search',
                     imageSrc: 'https://i1.adis.ws/i/tom_ford/T660_OC_OS_A?$large$&bg=rgb(255,255,255)',
                     imageAlt:
                         'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
@@ -179,10 +179,10 @@ export default function Header(props) {
                                                         <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
                                                             <img src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" />
                                                         </div>
-                                                        <a href={item.href} className="mt-6 block font-medium text-gray-900">
+                                                        <Link href={item.href} className="mt-6 block font-medium text-gray-900">
                                                             <span className="absolute z-10 inset-0" aria-hidden="true" />
                                                             {item.name}
-                                                        </a>
+                                                        </Link>
                                                         <p aria-hidden="true" className="mt-1">
                                                             Shop now
                                                         </p>
@@ -201,9 +201,9 @@ export default function Header(props) {
                                                     >
                                                         {section.items.map((item) => (
                                                             <li key={item.name} className="flow-root">
-                                                                <a href={route(item.href)} method="get" data={item.data} className="-m-2 p-2 block text-gray-500">
+                                                                <Link href={route(item.href)} method="get" data={item.data} className="-m-2 p-2 block text-gray-500">
                                                                     {item.name}
-                                                                </a>
+                                                                </Link>
                                                             </li>
                                                         ))}
                                                     </ul>
@@ -217,41 +217,49 @@ export default function Header(props) {
                             <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                                 {navigation.pages.map((page) => (
                                     <div key={page.name} className="flow-root">
-                                        <a href={page.href} className="-m-2 p-2 block font-medium text-gray-900">
+                                        <Link href={page.href} className="-m-2 p-2 block font-medium text-gray-900">
                                             {page.name}
-                                        </a>
+                                        </Link>
                                     </div>
                                 ))}
                             </div>
 
-                            <div className="border-t border-gray-200 py-6 px-4 space-y-6">
-                                <div className="flow-root">
-                                    <a href="#" className="-m-2 p-2 block font-medium text-gray-900">
-                                        Sign in
-                                    </a>
+                            {props.auth.user ? (
+                                <div className="border-t border-gray-200 py-6 px-4 space-y-6">
+                                    <div className="flow-root">
+                                        <Link href="#" className="-m-2 p-2 block font-medium text-gray-900">
+                                            Welcome {props.auth.user.name}
+                                        </Link>
+                                    </div>
+                                    <div className="flow-root">
+                                        <span className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                            Pin:
+                                            <button className="font-bold" onClick={() => setShowPin(!showPin)} >{showPin ? props.auth.user.pin : '***'}</button>
+                                        </span>
+                                    </div>
+                                    <div className="flow-root">
+                                        <Link href={route('logout')} method="post" className="-m-2 p-2 block font-medium text-gray-900">
+                                            Log Out
+                                        </Link>
+                                    </div>
                                 </div>
-                                <div className="flow-root">
-                                    <a href="#" className="-m-2 p-2 block font-medium text-gray-900">
-                                        Create account
-                                    </a>
+                            ) : (
+                                <div className="border-t border-gray-200 py-6 px-4 space-y-6">
+                                    <div className="flow-root">
+                                        <Link href={route('login')} className="-m-2 p-2 block font-medium text-gray-900">
+                                            Sign in
+                                        </Link>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
 
-                            <div className="border-t border-gray-200 py-6 px-4">
-                                <a href="#" className="-m-2 p-2 flex items-center">
-                                    <img
-                                        src="https://tailwindui.com/img/flags/flag-canada.svg"
-                                        alt=""
-                                        className="w-5 h-auto block flex-shrink-0"
-                                    />
-                                    <span className="ml-3 block text-base font-medium text-gray-900">CAD</span>
-                                    <span className="sr-only">, change currency</span>
-                                </a>
-                            </div>
+
+
+
                         </div>
                     </Transition.Child>
-                </Dialog>
-            </Transition.Root>
+                </Dialog >
+            </Transition.Root >
 
             <header className="relative overflow-hidden">
                 {/* Top navigation */}
@@ -269,14 +277,14 @@ export default function Header(props) {
 
                             {/* Logo */}
                             <div className="ml-4 flex lg:ml-0">
-                                <a href={route('landing')}>
+                                <Link href={route('landing')}>
                                     <span className="sr-only">Tom Ford Beauty</span>
                                     <img
                                         className="h-8 w-auto"
                                         src="https://media.elcompanies.com/images/e/estee-lauder-companies/universal/our-brands/tom-ford-beauty/tom-ford-beauty.png?h=140&la=en&w=720"
                                         alt=""
                                     />
-                                </a>
+                                </Link>
                             </div>
 
                             {/* Flyout menus */}
@@ -334,10 +342,10 @@ export default function Header(props) {
                                                                                             className="object-center object-cover"
                                                                                         />
                                                                                     </div>
-                                                                                    <a href={item.href} className="mt-6 block font-medium text-gray-900">
+                                                                                    <Link href={item.href} className="mt-6 block font-medium text-gray-900">
                                                                                         <span className="absolute z-10 inset-0" aria-hidden="true" />
                                                                                         {item.name}
-                                                                                    </a>
+                                                                                    </Link>
                                                                                     <p aria-hidden="true" className="mt-1">
                                                                                         Shop now
                                                                                     </p>
@@ -377,13 +385,13 @@ export default function Header(props) {
                                     ))}
 
                                     {navigation.pages.map((page) => (
-                                        <a
+                                        <Link
                                             key={page.name}
                                             href={page.href}
                                             className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                                         >
                                             {page.name}
-                                        </a>
+                                        </Link>
                                     ))}
                                 </div>
                             </Popover.Group>
@@ -392,9 +400,9 @@ export default function Header(props) {
 
                                 {props.auth.user ? (
                                     <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                        <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                        <Link href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                             Welcome {props.auth.user.name}
-                                        </a>
+                                        </Link>
                                         <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                                         <span className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                             Pin:
@@ -412,8 +420,6 @@ export default function Header(props) {
                                         </Link>
                                     </div>
                                 )}
-
-
 
                                 {/* Cart */}
                                 <CartIcon cartInfo={props.auth.cartInfo} />

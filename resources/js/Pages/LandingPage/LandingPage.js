@@ -5,20 +5,9 @@ import ShopByCategory from './ShopByCategory'
 import BreastCancer from './BreastCancer'
 import TrendingProducts from './TrendingProducts'
 import CallToActionSection from './CallToActionSection'
+import { Link } from '@inertiajs/inertia-react'
 
 export default function LandingPage(props) {
-
-
-    // useEffect(() => {
-
-
-    //     Echo.private(`Products`)
-    //         .listen('AddProduct', (e) => {
-    //             console.log("yello");
-    //         })
-
-    // }, []);
-
 
     return (
         <div className="bg-white">
@@ -27,11 +16,10 @@ export default function LandingPage(props) {
                     <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:static">
                         <div className="sm:max-w-lg">
                             <h1 className="text-4xl font font-extrabold tracking-tight text-gray-900 sm:text-6xl">
-                                Summer styles are finally here
+                                Signature Collection
                             </h1>
                             <p className="mt-4 text-xl text-gray-500">
-                                This year, our new summer collection will shelter you from the harsh elements of a world that doesn't
-                                care if you live or die.
+                                This year, our signature collection will have you feeling
                             </p>
                         </div>
                         <div>
@@ -102,12 +90,12 @@ export default function LandingPage(props) {
                                     </div>
                                 </div>
 
-                                <a
-                                    href="#"
+                                <Link
+                                    href={route('search')} method="get" data={{ categories: ['signature'] }}
                                     className="inline-block text-center bg-black border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-gray-700"
                                 >
                                     Shop Collection
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
