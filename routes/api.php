@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\VoiceIVRController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('voice/answer', [VoiceIVRController::class, 'answer'])->name('voice.answer');
+Route::post('voice/pin', [VoiceIVRController::class, 'pin'])->name('voice.pin');
+Route::post('voice/greetings', [VoiceIVRController::class, 'greetings'])->name('voice.greetings');
+Route::post('voice/menu', [VoiceIVRController::class, 'menu'])->name('voice.menu');
+Route::post('voice/getWomenSubCategories', [VoiceIVRController::class, 'getWomenSubCategories'])->name('voice.getWomenSubCategories');
+Route::post('voice/productlist', [VoiceIVRController::class, 'productlist'])->name('voice.productlist');
