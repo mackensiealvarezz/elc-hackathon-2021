@@ -12,6 +12,7 @@ class Cart extends Model
     protected $fillable = [
         'user_id',
         'total',
+        'donate',
     ];
 
     public function products()
@@ -21,7 +22,14 @@ class Cart extends Model
 
     public function updateTotal()
     {
-        $this->update(['total' => $this->products()->sum('price')]);
+        dd($this->products()->sum('price')+($this->donate));
+        $this->update(['total' => $this->products()->sum('price')+$this->donate]);
+    }
+
+    public function setDonate($donation)
+    {
+        dd($donation);
+        return $this->donate = $donation;
     }
 
 

@@ -30,6 +30,8 @@
         "tailwindcss": "^2.1.2"
     },
     "dependencies": {
-        "@heroicons/react": "^1.0.4"
+        "@heroicons/react": "^1.0.4",
+        "prop-types": "^15.7.2",
+        "react-ticker": "^1.2.2"
     }
 }

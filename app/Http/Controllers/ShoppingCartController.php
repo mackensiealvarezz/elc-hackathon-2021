@@ -23,10 +23,18 @@ class ShoppingCartController extends Controller
     public function deleteFromBag(Request $request)
     {
         $cart = Cart::find($request->cart_id);
+        // dd($request);
         $cart->products()->detach($request->product_id);
         $cart->updateTotal();
         return back();
     }
 
+    public function addDonation(Request $request) {
+        $cart = Cart::find($request->cart_id);
+        // dd($request);
+        $cart->setDonate($request->donation);
+        // $cart->donate = $request->donation;
+        return back();
+    }
 
 }
