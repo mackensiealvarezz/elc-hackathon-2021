@@ -1,15 +1,32 @@
 import { useForm } from '@inertiajs/inertia-react'
+import React from 'react';
 
 export default function OrderSummary({ cart, user }) {
 
-    const { data, setData, post } = useForm({
+    const { data, setData, post, setValue } = useForm({
         cart_id: cart.id,
-        donation: 10,
+        donation: 0,
         user_id: user.id,
     })
 
-    const onClickHandler = (e) => {
+    const initialFormData = Object.freeze({
+        donation: "",
+    })
+
+    const [formData, updateFormData] = React.useState(initialFormData);
+
+    const handleChange = (e) => {
+        updateFormData({
+            ...formData,
+            [e.target.name]: e.target.value.trim()
+        })
+    }    
+
+    const handleSubmit = (e) => {
         e.preventDefault()
+        console.log(formData.donation);
+        console.log(data.donation);
+        data.donation = formData.donation;
         post(route('checkout'))
     }
 
@@ -36,7 +53,7 @@ export default function OrderSummary({ cart, user }) {
                                 $
                             </span>
                             </div>
-                            <input type="number" min="0.00" step="0.01" name="price" id="price" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00" />
+                            <input type="number" min="0.00" step="0.01" name="donation" id="price" onChange={handleChange} class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00" />
                             <div class="absolute inset-y-0 right-0 flex items-center">
                             <label for="currency" class="sr-only">Currency</label>
                             <select id="currency" name="currency" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
@@ -54,7 +71,7 @@ export default function OrderSummary({ cart, user }) {
                 </div>
             </dl>
             <div className="mt-6">
-                <button onClick = {onClickHandler}
+                <button onClick = {handleSubmit}
                     type="submit" value="submit"
                     className="w-full px-4 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
                 >

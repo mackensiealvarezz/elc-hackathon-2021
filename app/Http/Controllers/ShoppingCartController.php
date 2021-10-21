@@ -31,10 +31,12 @@ class ShoppingCartController extends Controller
     }
 
     public function addDonation(Request $request) {
+        // dd($request);
         $cart = Cart::find($request->cart_id);
         $user = User::find($request->user_id);
         $user->makeDonor();
         $cart->setDonate($request->donation);
+        $cart->updateTotal();
         return back();
     }
 
