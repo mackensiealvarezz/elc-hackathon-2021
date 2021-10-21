@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Twilio\TwiML\VoiceResponse;
 
@@ -133,10 +134,10 @@ class VoiceIVRController extends Controller
         $selectedOption = $request->input('Digits');
         $user_id = $request->user_id;
         $accessibilityMode = $request->accessibilityMode;
+        $response = new VoiceResponse();
         switch ($selectedOption) {
             case 1:
                 //Fragrance
-                $response = new VoiceResponse();
                 $gather = $response->gather(
                     [
                     'numDigits' => '1',
@@ -151,11 +152,33 @@ class VoiceIVRController extends Controller
                 return $response;
                 break;
             case 2:
-                //men
+                //face
+                 $gather = $response->gather(
+                    [
+                    'numDigits' => '1',
+                    'action' => route('voice.productlist', [
+                        "user_id" => $user_id,
+                        'accessibilityMode' => $accessibilityMode,
+                        "parentCategory" => 'face',
+                    ])
+                    ]
+                );
+                $gather->say('Press 1 for bronzer. Press 2 for brushes. Press 3 for CHEEK COLOR. Press 4 for CONCEALER. Press 5 for FOUNDATION');
+                return $response;
 
                 break;
             case 3:
-                //view to cart
+                $gather = $response->gather(
+                    [
+                    'numDigits' => '1',
+                    'action' => route('voice.productlist', [
+                        "user_id" => $user_id,
+                        'accessibilityMode' => $accessibilityMode,
+                        "parentCategory" => 'lips',
+                    ])
+                    ]
+                );
+                $gather->say('Press 1 for LIP COLOR. Press 2 for BOYS & GIRLS. Press 3 for LIP LACQUER. Press 4 for LIP GLOSS. Press 5 for FOUNDATION');
 
                 break;
             default:
@@ -168,8 +191,42 @@ class VoiceIVRController extends Controller
     public function productlist(Request $request)
     {
         $response = new VoiceResponse();
-        $response->say("Category, {$request->parentCategory}, {$request->Digits}");
+        $parentCategory = $request->parentCategory;
+        $category = $this->getCategoryName($parentCategory, $request->Digits);
+        $categories = [$parentCategory, $category];
+
+
+        //Get the products?
+        $products = Product::whereJsonContains('categories', $categories)
+            ->limit(9)
+            ->pluck('name')
+            ;
+
+        $sayProducts = '';
+
+        for($i = 1; $i < $products->count() + 1; $i++){
+            $sayProducts .= " Press {$i} for {$products[$i-1]}.";
+        }
+
+
+        $response->say($sayProducts);
         return $response;
+    }
+
+    public function getCategoryName($parentCategory, $digit)
+    {
+        $categories = [
+            'fragrance' => [
+                1 => 'best_sellers',
+                2 => 'discover_private_blend',
+                3 => 'private_blend',
+                4 => 'signature',
+                5 => 'candles'
+            ],
+            ''
+        ];
+
+        return $categories[$parentCategory][$digit];
     }
 
 
