@@ -1,15 +1,16 @@
 import { useForm } from '@inertiajs/inertia-react'
 
-export default function OrderSummary({ cart }) {
+export default function OrderSummary({ cart, user }) {
 
     const { data, setData, post } = useForm({
         cart_id: cart.id,
         donation: 10,
+        user_id: user.id,
     })
 
     const onClickHandler = (e) => {
         e.preventDefault()
-        post(route('addDonation'))
+        post(route('checkout'))
     }
 
     return (
@@ -20,7 +21,7 @@ export default function OrderSummary({ cart }) {
             <h2 id="summary-heading" className="text-lg font-medium text-gray-900">
                 Order summary
             </h2>
-            <form onSubmit={onClickHandler}>
+            <form>
             <dl className="mt-6 space-y-4">
                 <div className="flex items-center justify-between">
                     <dt className="text-sm text-gray-600">Subtotal</dt>
@@ -54,7 +55,7 @@ export default function OrderSummary({ cart }) {
             </dl>
             <div className="mt-6">
                 <button onClick = {onClickHandler}
-                    type="submit"
+                    type="submit" value="submit"
                     className="w-full px-4 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
                 >
                     Checkout

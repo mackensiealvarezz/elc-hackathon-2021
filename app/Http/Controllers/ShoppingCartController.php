@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class ShoppingCartController extends Controller
     public function deleteFromBag(Request $request)
     {
         $cart = Cart::find($request->cart_id);
-        // dd($request);
+        dd($cart->products());
         $cart->products()->detach($request->product_id);
         $cart->updateTotal();
         return back();
@@ -31,9 +32,17 @@ class ShoppingCartController extends Controller
 
     public function addDonation(Request $request) {
         $cart = Cart::find($request->cart_id);
-        // dd($request);
+        $user = User::find($request->user_id);
+        $user->makeDonor();
         $cart->setDonate($request->donation);
-        // $cart->donate = $request->donation;
+        return back();
+    }
+
+    public function clearCart(Request $request) {
+        $cart = Cart::find($request->cart_id);
+        $cart->products()->detach();
+        $cart->setDonate(null);
+        $cart->updateTotal();
         return back();
     }
 

@@ -22,14 +22,12 @@ class Cart extends Model
 
     public function updateTotal()
     {
-        dd($this->products()->sum('price')+($this->donate));
         $this->update(['total' => $this->products()->sum('price')+$this->donate]);
     }
 
     public function setDonate($donation)
     {
-        dd($donation);
-        return $this->donate = $donation;
+        $this->update(['donate' => $donation]);
     }
 
 

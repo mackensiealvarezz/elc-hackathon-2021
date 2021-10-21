@@ -37,7 +37,7 @@ export default function ShoppingCart(props) {
                         </section>
 
                         {/* Order summary */}
-                        <OrderSummary cart={props.cart} />
+                        <OrderSummary cart={props.cart} user={props.auth.user}/>
 
                     </form>
 
