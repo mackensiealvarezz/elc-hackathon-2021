@@ -3,7 +3,7 @@ import Ticker from "react-ticker";
 
 const arr = ['hi','bye','hello','goodybe','text','lorem'];
 
-export default function BreastCancer(props) {
+export default function BreastCancer(donors) {
 
     return (
         <section aria-labelledby="cause-heading">
@@ -23,7 +23,7 @@ export default function BreastCancer(props) {
                             {arr.join('\t')}
                         </h1><br />
                         <h1 style={{opacity: '75%'}}>
-                            This is the Headline of element #{index}!
+                            {donors.donors[0].name}
                         </h1><br />
                         <h1 style={{opacity: '75%'}}>
                             This is the Headline of element #{index}!
@@ -39,7 +39,6 @@ export default function BreastCancer(props) {
                     Breast cancer is now the most commonly diagnosed cancer worldwide, making the need to help find a cure more urgent than ever. 
                     Let’s rally together to help create a breast cancer-free world.
                     </p>
-                    {props.donors}
                     <a
                         href="/cart"
                         className="block w-full px-8 py-3 mt-8 text-base font-medium text-gray-900 bg-white border border-transparent rounded-md hover:bg-gray-100 sm:w-auto"

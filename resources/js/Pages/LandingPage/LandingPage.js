@@ -109,7 +109,7 @@ export default function LandingPage(props) {
                     <ShopByCategory />
                 </div>
 
-                <BreastCancer />
+                <BreastCancer donors={props.donors}/>
                 <TrendingProducts />
                 <CallToActionSection />
             </main>
