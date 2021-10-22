@@ -2,6 +2,7 @@ import { useForm } from '@inertiajs/inertia-react'
 import React from 'react';
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
+import { isSet } from 'lodash';
 
 export default function OrderSummary({ cart, user }) {
 
@@ -11,7 +12,7 @@ export default function OrderSummary({ cart, user }) {
         user_id: user.id,
     })
 
-    let [isOpen, setIsOpen] = useState(true)
+    let [isOpen, setIsOpen] = useState(false)
 
     const initialFormData = Object.freeze({
         donation: "",
@@ -19,9 +20,11 @@ export default function OrderSummary({ cart, user }) {
 
     function closeModal() {
         setIsOpen(false)
+        post(route('popup'))
+        location.href=route('landing')
       }
     
-      function openModal() {
+      function openModal() {           
         setIsOpen(true)
       }
 
@@ -41,6 +44,14 @@ export default function OrderSummary({ cart, user }) {
         data.donation = formData.donation;
         post(route('checkout'))
         openModal();
+    }
+
+    function donorMessage() {
+        if(cart.donate != null && cart.donate != 0) {
+            return <p className="text-pink-700">Thank you for donating ${cart.donate} towards the Breast Cancer Research Foundation!</p>;
+        } else {
+            return ;
+        }
     }
 
     return (
@@ -66,7 +77,7 @@ export default function OrderSummary({ cart, user }) {
                                 $
                             </span>
                             </div>
-                            <input type="number" min="0.00" step="0.01" name="donation" id="price" onChange={handleChange} class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00" />
+                            <input type="number" min="0" step="1" name="donation" id="price" onChange={handleChange} class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0" />
                             <div class="absolute inset-y-0 right-0 flex items-center">
                             <label for="currency" class="sr-only">Currency</label>
                             <select id="currency" name="currency" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
@@ -130,12 +141,14 @@ export default function OrderSummary({ cart, user }) {
                         as="h3"
                         className="text-lg font-medium leading-6 text-gray-900"
                         >
-                        Payment successful
+                        Payment successful.
+                        Thanks for shopping with us, {user.name}!
                         </Dialog.Title>
                         <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                            Your payment has been successfully submitted. We’ve sent you
-                            an email with all of the details of your order.
+                            <br />
+                            Your payment of ${cart.total} has been successfully submitted.<br /><br />
+                            {donorMessage()}
                         </p>
                         </div>
 
@@ -145,7 +158,7 @@ export default function OrderSummary({ cart, user }) {
                             className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                             onClick={closeModal}
                         >
-                            Got it, thanks!
+                            Go to Home
                         </button>
                         </div>
                     </div>
