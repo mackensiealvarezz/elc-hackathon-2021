@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\Product;
 use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ShoppingCartController extends Controller
 {
@@ -24,16 +25,14 @@ class ShoppingCartController extends Controller
     public function deleteFromBag(Request $request)
     {
         $cart = Cart::find($request->cart_id);
-        // dd($cart->products());
         $cart->products()->detach($request->product_id);
         $cart->updateTotal();
         return back();
     }
 
-    public function addDonation(Request $request) {
-        // dd($request);
-        $cart = Cart::find($request->cart_id);
-        $user = User::find($request->user_id);
+    public function checkout(Request $request) {
+        $user = $request->user();
+        $cart = Cart::where('user_id',$user->id)->first();
         $user->makeDonor();
         $cart->setDonate($request->donation);
         $cart->updateTotal();
@@ -41,11 +40,12 @@ class ShoppingCartController extends Controller
     }
 
     public function clearCart(Request $request) {
-        $cart = Cart::find($request->cart_id);
+        $user = $request->user();
+        $cart = Cart::where('user_id',$user->id)->first();
         $cart->products()->detach();
+        $cart->save();
         $cart->setDonate(null);
         $cart->updateTotal();
-        return back();
+        return Redirect::route('landing');
     }
-
 }
