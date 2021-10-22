@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Twilio\TwiML\VoiceResponse;
 use App\Events\CartUpdatedEvent;
 use App\Events\SearchProductListEvent;
+use App\Events\ShowCartEvent;
 use App\Events\ShowProductDetailEvent;
 
 class VoiceIVRController extends Controller
@@ -182,14 +183,73 @@ class VoiceIVRController extends Controller
     {
 
         $user = User::find(Str::after($request->UserIdentifier, 'client:'));
+        event(new ShowCartEvent($user->id));
+        $cart = $user->currentCart()->load('products');
+        $products = $cart->products;
+
+
+        if ($products->count() == 0) {
+            return [
+                'actions' => [
+                    [
+                        'say' => "You don't have any items in your cart. Can i help you with shopping? If so, Say Shopping"
+                    ],
+                    [
+                        'listen' => true
+                    ]
+                ]
+            ];
+        }
+
+
+        $actions = [];
+        $products_word = Str::plural('products',  $products->count());
+
+        //Count
+        $actions[] =  [
+            'say' => "You have {$products->count()} {$products_word} in your cart."
+        ];
+
+        //Say every product
+        foreach ($products as $product) {
+            $actions[] = [
+                'say' => "{$product->name}, {$product->price} dollars."
+            ];
+        }
+
+        // show how to remove
+        $actions[] =  [
+            'say' => "To remove a product say, Remove then the product name. For example: Remove {$products->first()->name}."
+        ];
+
+        //Checkout
+        $actions[] =  [
+            'say' => "To checkout say: Checkout"
+        ];
+
+        $actions[] = [
+            'listen' => true
+        ];
+
+        return [
+            'actions' => $actions
+        ];
+    }
+
+    public function remove(Request $request)
+    {
+        $product_name = $request->Field_product_Value ?? null;
+        $user = User::find(Str::after($request->UserIdentifier, 'client:'));
+        $product = Product::whereName($product_name)->first();
         $cart = $user->currentCart()->load('products');
 
-        $products = $cart->products;
+        $cart->deleteProduct($product->id);
+        event(new ShowCartEvent($user->id));
 
         return [
             'actions' => [
                 [
-                    'say' => "You have {$products->count()} products in your cart."
+                    'say' => "We removed the product from your cart?.Anything else we can help you with? Or say checkout to finish your order."
                 ],
                 [
                     'listen' => true
@@ -198,344 +258,37 @@ class VoiceIVRController extends Controller
         ];
     }
 
-    public function validate_pin(Request $request)
+
+    public function checkout(Request $request)
     {
-        $user = User::where('pin', $request->CurrentInput)->first();
-        if ($user) {
-            return ['valid' => true];
+
+        $user = User::find(Str::after($request->UserIdentifier, 'client:'));
+        event(new ShowCartEvent($user->id));
+        $cart = $user->currentCart()->load('products');
+        $products_count = $cart->products->count();
+
+        if ($products_count == 0) {
+            return [
+                'actions' => [
+                    [
+                        'say' => "You don't have any items in your cart. Can i help you with shopping? If so, Say Shopping"
+                    ],
+                    [
+                        'listen' => true
+                    ]
+                ]
+            ];
         }
-        return ['valid' => false];
-    }
-
-    public function collect(Request $request)
-    {
-        $json = $request->Memory;
-        $data = json_decode($json, true);
-
-        $user = User::where('pin', $data['twilio']['collected_data']['collect_clothes_order']['answers']['pin']['answer'])->first();
-        $parentCategory = $data['twilio']['collected_data']['collect_clothes_order']['answers']['gender']['answer'];
-
-        event(new SearchProductListEvent($user->id, [$parentCategory]));
 
         return [
-            "actions" => [
+            'actions' => [
                 [
-                    "collect" => [
-                        "name" => "collect_clothes_order",
-                        "questions" => [
-                            [
-                                "question" => "Welcome {$user->name}",
-                                "name" => "pin",
-                                "type" => "Twilio.NUMBER",
-                                "validate" => [
-                                    "webhook" => [
-                                        "url" => "https://8693-108-50-216-233.ngrok.io/api/voice/validate_pin",
-                                        "method" => "POST"
-                                    ]
-                                ]
-                            ],
-                            [
-                                "question" => "What type of clothes would you like?",
-                                "name" => "clothes_type",
-                                "type" => "Clothing",
-                                "validate" => [
-                                    "on_failure" => [
-                                        "messages" => [
-                                            [
-                                                "say" => "Sorry, that's not a clothing type we have. We have shirts, shoes, pants, skirts, and dresses."
-                                            ]
-                                        ],
-                                        "repeat_question" => true
-                                    ],
-                                    "on_success" => [
-                                        "say" => "Great, I've got the clothing type you want."
-                                    ],
-                                    "max_attempts" => [
-                                        "redirect" => "task://collect_fallback",
-                                        "num_attempts" => 3
-                                    ]
-                                ]
-                            ],
-                            [
-                                "question" => "How many would you like to order?",
-                                "name" => "num_clothes",
-                                "type" => "Twilio.NUMBER"
-                            ]
-                        ],
-                        "on_complete" => [
-                            "redirect" => "https://8693-108-50-216-233.ngrok.io/api/voice/collect"
-                        ]
-                    ]
+                    'say' => "We have checked out your order"
+                ],
+                [
+                    'listen' => true
                 ]
             ]
         ];
-    }
-
-    public function dynamicsay()
-    {
-        return [
-
-            "actions" => [
-                [
-                    "collect" => [
-                        "name" => "collect_clothes_order",
-                        "questions" => [
-                            [
-                                "question" => "what is your pin?",
-                                "name" => "pin",
-                                "type" => "Twilio.NUMBER",
-                                "validate" => [
-                                    "webhook" => [
-                                        "url" => "https://8693-108-50-216-233.ngrok.io/api/voice/validate_pin",
-                                        "method" => "POST"
-                                    ]
-                                ]
-                            ],
-                            [
-                                "question" => "Are you interested in shopping for women or men?",
-                                "name" => "gender",
-                                "type" => "Gender",
-                                "validate" => [
-                                    "on_failure" => [
-                                        "messages" => [
-                                            [
-                                                "say" => "Sorry, our categories are broken down into women or men"
-                                            ]
-                                        ],
-                                        "repeat_question" => true
-                                    ],
-                                    "on_success" => [
-                                        "say" => "Great, Let me gather that information."
-                                    ],
-                                    "max_attempts" => [
-                                        "redirect" => "task://collect_fallback",
-                                        "num_attempts" => 3
-                                    ]
-                                ]
-                            ],
-                        ],
-                        "on_complete" => [
-                            "redirect" => "https://8693-108-50-216-233.ngrok.io/api/voice/collect"
-                        ]
-                    ]
-                ]
-            ]
-        ];
-    }
-
-
-
-    public function answer()
-    {
-        $response = new VoiceResponse;
-        $gather = $response->gather(
-            [
-                'numDigits' => 3,
-                'action' => route('voice.pin')
-            ]
-        );
-
-        $gather->say(
-            'Welcome Tom Ford Beauty, please enter in your pin to continune.' .
-                'Your pin is located on the top right of the site '
-        );
-
-        return $response;
-    }
-
-    public function pin(Request $request)
-    {
-        $pin = $request->input('Digits');
-        //find a user with this pin
-        $user = User::where('pin', $pin)->first();
-
-        //found user
-        if ($user) {
-            return $this->accessibilityMode($user);
-        }
-
-        //wrong pin
-        $response = new VoiceResponse;
-        $response->say('Returning to the main menu');
-        $response->redirect(route('voice.answer'));
-        return $response;
-    }
-
-    public function accessibilityMode(User $user)
-    {
-        $response = new VoiceResponse();
-        $gather = $response->gather(
-            [
-                'numDigits' => '1',
-                'action' => route('voice.greetings', ["user_id" => $user->id])
-            ]
-        );
-        $gather->say(
-            'Would you like to enable accessibility mode? This mode will read the products describes and describe the product. Press 1 to enable. Press 2 To continue without enabling.',
-        );
-
-        return $response;
-    }
-
-    public function greetingsx(Request $request)
-    {
-
-        $selectedOptionForAcc = $request->input('Digits');
-
-
-        $response = new VoiceResponse();
-        //entered wrong options
-        if ($selectedOptionForAcc != 1 && $selectedOptionForAcc != 2) {
-            $response->say('Returning to the main menu');
-            $response->redirect(route('voice.answer'));
-            return $response;
-        }
-
-        $user = User::find($request->user_id);
-        $gather = $response->gather(
-            [
-                'numDigits' => '1',
-                'action' => route('voice.menu', ["user_id" => $user->id, 'accessibilityMode' => $selectedOptionForAcc])
-            ]
-        );
-        $gather->say("Hello {$user->name}, Press 1 for women products. Press 2 for men products. Press 3 to view your cart.");
-
-        return $response;
-    }
-
-    public function menu(Request $request)
-    {
-        $selectedOption = $request->input('Digits');
-        $user_id = $request->user_id;
-        $accessibilityMode = $request->accessibilityMode;
-        switch ($selectedOption) {
-            case 1:
-                //women
-                return $this->getWomenParentCategories($user_id, $accessibilityMode);
-                break;
-            case 2:
-                //men
-
-                break;
-            case 3:
-                //view to cart
-
-                break;
-            default:
-                break;
-        }
-    }
-
-    public function getWomenParentCategories($user_id, $accessibilityMode)
-    {
-
-        $response = new VoiceResponse();
-        $gather = $response->gather(
-            [
-                'numDigits' => '1',
-                'action' => route('voice.getWomenSubCategories', ["user_id" => $user_id, 'accessibilityMode' => $accessibilityMode])
-            ]
-        );
-        $gather->say('Press 1 for Fragrance. Press 2 for face. Press 3 for lips.');
-        return $response;
-    }
-
-    public function getWomenSubCategories(Request $request)
-    {
-
-        $selectedOption = $request->input('Digits');
-        $user_id = $request->user_id;
-        $accessibilityMode = $request->accessibilityMode;
-        $response = new VoiceResponse();
-        switch ($selectedOption) {
-            case 1:
-                //Fragrance
-                $gather = $response->gather(
-                    [
-                        'numDigits' => '1',
-                        'action' => route('voice.productlist', [
-                            "user_id" => $user_id,
-                            'accessibilityMode' => $accessibilityMode,
-                            "parentCategory" => 'fragrance',
-                        ])
-                    ]
-                );
-                $gather->say('Press 1 for Best Sellers. Press 2 for DISCOVER PRIVATE BLEND. Press 3 for PRIVATE BLEND. Press 4 for SIGNATURE. Press 5 for CANDLES');
-                return $response;
-                break;
-            case 2:
-                //face
-                $gather = $response->gather(
-                    [
-                        'numDigits' => '1',
-                        'action' => route('voice.productlist', [
-                            "user_id" => $user_id,
-                            'accessibilityMode' => $accessibilityMode,
-                            "parentCategory" => 'face',
-                        ])
-                    ]
-                );
-                $gather->say('Press 1 for bronzer. Press 2 for brushes. Press 3 for CHEEK COLOR. Press 4 for CONCEALER. Press 5 for FOUNDATION');
-                return $response;
-
-                break;
-            case 3:
-                $gather = $response->gather(
-                    [
-                        'numDigits' => '1',
-                        'action' => route('voice.productlist', [
-                            "user_id" => $user_id,
-                            'accessibilityMode' => $accessibilityMode,
-                            "parentCategory" => 'lips',
-                        ])
-                    ]
-                );
-                $gather->say('Press 1 for LIP COLOR. Press 2 for BOYS & GIRLS. Press 3 for LIP LACQUER. Press 4 for LIP GLOSS. Press 5 for FOUNDATION');
-
-                break;
-            default:
-                break;
-        }
-    }
-
-
-    public function productlist(Request $request)
-    {
-        $response = new VoiceResponse();
-        $parentCategory = $request->parentCategory;
-        $category = $this->getCategoryName($parentCategory, $request->Digits);
-        $categories = [$parentCategory, $category];
-
-
-        //Get the products?
-        $products = Product::whereJsonContains('categories', $categories)
-            ->limit(9)
-            ->pluck('name');
-
-        $sayProducts = '';
-
-        for ($i = 1; $i < $products->count() + 1; $i++) {
-            $sayProducts .= " Press {$i} for {$products[$i - 1]}.";
-        }
-
-
-        $response->say($sayProducts);
-        return $response;
-    }
-
-    public function getCategoryName($parentCategory, $digit)
-    {
-        $categories = [
-            'fragrance' => [
-                1 => 'best_sellers',
-                2 => 'discover_private_blend',
-                3 => 'private_blend',
-                4 => 'signature',
-                5 => 'candles'
-            ],
-            ''
-        ];
-
-        return $categories[$parentCategory][$digit];
     }
 }

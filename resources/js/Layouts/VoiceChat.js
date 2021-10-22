@@ -4,48 +4,6 @@ import { Link } from "@inertiajs/inertia-react"
 import { Inertia } from '@inertiajs/inertia';
 import { PhoneIcon, PhoneIncomingIcon } from "@heroicons/react/outline";
 
-
-function setupHandlers(device) {
-    device.on('ready', function (_device) {
-        console.log('ready voice-channel');
-    });
-
-    /* Report any errors to the call status display */
-    device.on('error', function (error) {
-        console.log('error');
-    });
-
-    /* Callback for when Twilio Client initiates a new connection */
-    device.on('connect', function (connection) {
-        // Enable the hang up button and disable the call buttons
-        console.log('connect');
-    });
-
-    /* Callback for when a call ends */
-    device.on('disconnect', function (connection) {
-        // Disable the hangup button and enable the call buttons
-        console.log('disconnect');
-    });
-
-    /* Callback for when Twilio Client receives a new incoming call */
-    device.on('incoming', function (connection) {
-        console.log('incoming');
-        // updateCallStatus("Incoming support call");
-
-        // // Set a callback to be executed when the connection is accepted
-        // connection.accept(function () {
-        //     updateCallStatus("In call with customer");
-        // });
-
-        // // Set a callback on the answer button and enable it
-        // answerButton.click(function () {
-        //     connection.accept();
-        // });
-        // answerButton.prop("disabled", false);
-    });
-};
-
-
 export default function VoiceChat(props) {
 
     const [connectedDevice, setConnectedDevice] = useState(false)
@@ -71,6 +29,31 @@ export default function VoiceChat(props) {
         setConnectedDevice(false)
     }
 
+
+    const setupHandlers = (device) => {
+        device.on('ready', function (_device) {
+            console.log('ready voice-channel');
+        });
+
+        device.on('error', function (error) {
+            console.log('error');
+        });
+
+        device.on('connect', function (connection) {
+            console.log('connect');
+        });
+
+
+        device.on('disconnect', function (connection) {
+            console.log('disconnect');
+            setConnectedDevice(false);
+        });
+
+        device.on('incoming', function (connection) {
+            console.log('incoming');
+        });
+    };
+
     useEffect(() => {
 
         Echo.private(`User.${props.auth.user.id}.Search`)
@@ -83,6 +66,10 @@ export default function VoiceChat(props) {
                 console.log(e);
                 Inertia.visit(route('product', { name: e.product_name }))
             })
+        Echo.private(`User.${props.auth.user.id}.ShowCart`)
+            .listen('ShowCartEvent', (e) => {
+                Inertia.visit(route('cart'))
+            })
     }, [])
 
     return (
@@ -90,7 +77,7 @@ export default function VoiceChat(props) {
 
             {connectedDevice && (
                 <PhoneIncomingIcon
-                    className="flex-shrink-0 h-6 w-6 text-green-400 group-hover:text-green-500"
+                    className="flex-shrink-0 h-6 w-6 text-green-400 group-hover:text-green-500 animate-bounce cursor-pointer"
                     aria-hidden="true"
                     onClick={disconnectDeviceHandler}
                 />
@@ -98,7 +85,7 @@ export default function VoiceChat(props) {
 
             {!connectedDevice && (
                 <PhoneIcon
-                    className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                    className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500 cursor-pointer"
                     aria-hidden="true"
                     onClick={connectDeviceHandler}
                 />

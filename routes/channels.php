@@ -31,3 +31,8 @@ Broadcast::channel('User.{id}.Search', function($user, $id){
 Broadcast::channel('User.{id}.ShowProduct', function($user, $id){
     return (int) $user->id === (int) $id;
 });
+
+
+Broadcast::channel('User.{id}.ShowCart', function($user, $id){
+    return (int) $user->id === (int) $id;
+});

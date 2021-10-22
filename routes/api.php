@@ -26,3 +26,5 @@ Route::post('voice/process_categories', [VoiceIVRController::class, 'process_cat
 Route::post('voice/viewProduct', [VoiceIVRController::class, 'viewProduct'])->name('voice.viewProduct');
 Route::post('voice/purchase', [VoiceIVRController::class, 'purchase'])->name('voice.purchase');
 Route::post('voice/viewCart', [VoiceIVRController::class, 'viewCart'])->name('voice.viewCart');
+Route::post('voice/remove', [VoiceIVRController::class, 'remove'])->name('voice.remove');
+Route::post('voice/checkout', [VoiceIVRController::class, 'checkout'])->name('voice.checkout');

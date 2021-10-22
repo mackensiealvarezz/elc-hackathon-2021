@@ -233,11 +233,11 @@ export default function Header(props) {
                                         </Link>
                                     </div>
                                     <div className="flow-root">
-
-                                        <span className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                        <VoiceChat auth={props.auth} />
+                                        {/* <span className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                             Pin:
                                             <button className="font-bold" onClick={() => setShowPin(!showPin)} >{showPin ? props.auth.user.pin : '***'}</button>
-                                        </span>
+                                        </span> */}
                                     </div>
                                     <div className="flow-root">
                                         <Link href={route('logout')} method="post" className="-m-2 p-2 block font-medium text-gray-900">
@@ -407,10 +407,10 @@ export default function Header(props) {
                                         </Link>
                                         <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                                         <VoiceChat auth={props.auth} />
-                                        <span className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                        {/* <span className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                             Pin:
                                             <button className="font-bold" onClick={() => setShowPin(!showPin)} >{showPin ? props.auth.user.pin : '***'}</button>
-                                        </span>
+                                        </span> */}
                                         <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                                         <Link href={route('logout')} method="post" as="button" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                             Log Out
