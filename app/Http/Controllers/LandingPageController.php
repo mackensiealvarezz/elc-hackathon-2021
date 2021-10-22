@@ -11,7 +11,7 @@ class LandingPageController extends Controller
     public function index()
     {
         return Inertia::render('LandingPage/LandingPage', [
-            'donors' =>  User::where('donor',true)->get('name')
+            'donors' =>  User::where('donor',true)->get('name')->chunk(4)
         ]);
     }
 }
