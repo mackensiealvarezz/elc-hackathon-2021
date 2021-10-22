@@ -7,6 +7,7 @@ use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Events\CartUpdatedEvent;
 use Illuminate\Support\Facades\Redirect;
 
 class ShoppingCartController extends Controller
@@ -25,8 +26,7 @@ class ShoppingCartController extends Controller
     public function deleteFromBag(Request $request)
     {
         $cart = Cart::find($request->cart_id);
-        $cart->products()->detach($request->product_id);
-        $cart->updateTotal();
+        $cart->deleteProduct($request->product_id);
         return back();
     }
 
@@ -46,6 +46,7 @@ class ShoppingCartController extends Controller
         $cart->save();
         $cart->setDonate(null);
         $cart->updateTotal();
+        event(new CartUpdatedEvent($cart));
         return Redirect::route('landing');
     }
 }

@@ -22,9 +22,7 @@ class ProductDetailController extends Controller
             'user_id' => $request->user()->id
         ]);
 
-        $cart->products()->attach($request->product_id);
-
-        $cart->updateTotal();
+        $cart->addProduct($request->product_id);
 
         return back();
     }

@@ -1,25 +1,34 @@
+import { Link } from "@inertiajs/inertia-react"
+
 const categories = [
     {
         name: 'New Arrivals',
-        href: '#',
+        href: 'search',
+        data: {},
         imageSrc: 'https://i1.adis.ws/i/tom_ford/T726_INITIATE_OS_A?$large$&bg=rgb(255,255,255)',
     },
     {
         name: 'Fragrance',
-        href: '#',
+        href: 'search',
+        data: { categories: ['fragrance'] },
         imageSrc: 'https://i1.adis.ws/i/tom_ford/T0-TOBACCO_OC_50ML_A?$large$&bg=rgb(255,255,255)',
     },
     {
         name: 'Foundation',
-        href: '#',
+        href: 'search',
+        data: { categories: ['foundation'] },
         imageSrc: 'https://i1.adis.ws/i/tom_ford/T7N1_MINIMALIST_OS_A?$large$&bg=rgb(255,255,255)',
     },
     {
         name: 'Men',
-        href: '#',
+        href: 'search',
+        data: { categories: ['men'] },
         imageSrc: 'https://i1.adis.ws/i/tom_ford/T443_OC_OS_A?$large$&bg=rgb(255,255,255)',
     },
-    { name: 'Candle', href: '#', imageSrc: 'https://i1.adis.ws/i/tom_ford/T55J_OC_OS_A?$large$&bg=rgb(255,255,255)' },
+    {
+        name: 'Candle', href: 'search',
+        data: { categories: ['candles'] }, imageSrc: 'https://i1.adis.ws/i/tom_ford/T55J_OC_OS_A?$large$&bg=rgb(255,255,255)'
+    },
 ]
 
 
@@ -30,9 +39,9 @@ export default function ShopByCategory() {
                 <h2 id="category-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
                     Shop by Category
                 </h2>
-                <a href="#" className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
+                <Link href={route('search')} method="get" className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
                     Browse all categories<span aria-hidden="true"> &rarr;</span>
-                </a>
+                </Link>
             </div>
 
             <div className="mt-4 flow-root">
@@ -40,9 +49,11 @@ export default function ShopByCategory() {
                     <div className="box-content py-2 relative h-80 overflow-x-auto xl:overflow-visible">
                         <div className="absolute min-w-screen-xl px-4 flex space-x-8 sm:px-6 lg:px-8 xl:relative xl:px-0 xl:space-x-0 xl:grid xl:grid-cols-5 xl:gap-x-8">
                             {categories.map((category) => (
-                                <a
+                                <Link
                                     key={category.name}
-                                    href={category.href}
+                                    href={route('search')}
+                                    method="get"
+                                    data={category.data}
                                     className="relative w-56 h-80 rounded-lg p-6 flex flex-col overflow-hidden hover:opacity-75 xl:w-auto"
                                 >
                                     <span aria-hidden="true" className="absolute inset-0">
@@ -53,13 +64,13 @@ export default function ShopByCategory() {
                                         className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"
                                     />
                                     <span className="relative mt-auto text-center text-xl font-bold text-white">{category.name}</span>
-                                </a>
+                                </Link>
                             ))}
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
 
     )
 }

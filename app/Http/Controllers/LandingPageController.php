@@ -3,20 +3,26 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
+use Twilio\Jwt\AccessToken;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Twilio\Jwt\Grants\VoiceGrant;
 
 class LandingPageController extends Controller
 {
     public function index()
     {
-        return Inertia::render('LandingPage/LandingPage', [
-            // 'donors' => array_chunk(User::where('donor',true)->get('name'),4)
-            'donors' =>  User::where('donor',true)->get('name')[0]
-        ]);
-    }
 
-    public function donorChunk($donors,$num) {
-        return array_chunk($donors,$num);
+        $donors = User::where('donor',true)->get('name');
+
+        $names = array();
+
+        for ($i=0;$i<sizeof($donors);$i++) {
+            array_push($names,$donors[$i]);
+        }
+
+        return Inertia::render('LandingPage/LandingPage', [
+            'donors' => array_chunk($names,3)
+        ]);
     }
 }

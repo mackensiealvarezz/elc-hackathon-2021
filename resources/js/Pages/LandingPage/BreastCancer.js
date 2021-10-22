@@ -1,52 +1,8 @@
-import { defaultsDeep } from "lodash";
-import { array, string } from "prop-types";
 import React from "react";
 import Ticker from "react-ticker";
 
-const arr = ['hi', 'bye', 'hello', 'goodybe', 'text', 'lorem'];
-
-function tickerText(donorList) {
-
-    // for (let i=0;i<donorList)
-    // console.log(donorList);
-}
-
-// function tickerText(donorList, pos, num) {
-//     var arrs = [];
-
-//     console.log(donorList);
-
-//     for (let j = 0; j < num; j++) {
-//         var arr = [];
-//         arrs[j] = arr;
-//     }
-
-//     console.log(arrs);
-
-//     // for (let i=0;i<donorList.length-1;i++) {
-//     //     if (i>donorList.length-1) {
-//     //         arr[i%4].push(donorList[i]);
-//     //     } else {
-//     //         arrs[i][0]=donorList[i];
-//     //     }
-//     // }
-
-//     // var k = 0;
-//     // for (let i=0;i<donorList.length;i++) {
-//     //     if (i<=arrs.length-1) {
-//     //         arrs[i]=donorList[i].name;
-//     //     } else {
-//     //         arr[i-arrs.length-1]=donorList[i];
-//     //     }
-//     // }
-
-
-//     return 'text';
-//     // names.slice(pos,(donorList.length/num)+pos).join('ㅤㅤㅤㅤㅤㅤㅤ');
-// }
-
 export default function BreastCancer(props) {
-
+    console.log(props.donors)
     return (
         <section aria-labelledby="cause-heading">
             <div className="relative px-6 py-32 bg-gray-800 sm:py-12 sm:px-12 lg:px-16">
@@ -63,30 +19,26 @@ export default function BreastCancer(props) {
                         <>
                             <div className="space-y-5">
                                 <div className="flex space-x-5">
-                                    {/* {props.donors[0].map((donor) => {
+                                    {props.donors[0].map((donor) => {
+                                        return <h1 key={donor.name} style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>{donor.name}</h1>
+                                    })}
+                                </div>
+                                <div className="flex space-x-20">
+                                    {props.donors[1].map((donor) => {
+                                        return <h1 key={donor.name} style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>{donor.name}</h1>
+                                    })}
+                                </div>
+                                <div className="flex space-x-32">
+                                    {props.donors[2].map((donor) => {
+                                        return <h1 key={donor.name} style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>{donor.name}</h1>
+                                    })}
+                                </div>
 
-                                        return <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>{donor.name}</h1>
-                                    })} */}
-                                    {console.log(props.donors)}
-
-                                </div>
-                                <div className="flex space-x-5">
-                                    <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>Shawn</h1>
-                                    <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>Mackensie Alvarez</h1>
-                                </div>
-                                <div className="flex space-x-25">
-                                    <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>Shawn</h1>
-                                    <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>Mackensie Alvarez</h1>
-                                </div>
-                                <div className="flex space-x-10">
-                                    <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>Shawn</h1>
-                                    <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>Mackensie Alvarez</h1>
-                                </div>
                             </div>
                         </>
                     )}
                 </Ticker>
-                <div className="box-border h-10"/>
+                <div className="box-border h-10" />
                 <div className="relative flex flex-col items-center max-w-3xl mx-auto text-center">
                     <h2 id="cause-heading" className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
                         Help us fight breast cancer
