@@ -63,24 +63,19 @@ export default function BreastCancer(props) {
                         <>
                             <div className="space-y-5">
                                 <div className="flex space-x-5">
-                                    {/* {props.donors[0].map((donor) => {
-
+                                    {props.donors[0].map((donor) => {
                                         return <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>{donor.name}</h1>
-                                    })} */}
-                                    {console.log(props.donors)}
-
+                                    })}
                                 </div>
-                                <div className="flex space-x-5">
-                                    <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>Shawn</h1>
-                                    <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>Mackensie Alvarez</h1>
+                                <div className="flex space-x-20">
+                                    {props.donors[1].map((donor) => {
+                                        return <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>{donor.name}</h1>
+                                    })}
                                 </div>
-                                <div className="flex space-x-25">
-                                    <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>Shawn</h1>
-                                    <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>Mackensie Alvarez</h1>
-                                </div>
-                                <div className="flex space-x-10">
-                                    <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>Shawn</h1>
-                                    <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>Mackensie Alvarez</h1>
+                                <div className="flex space-x-32">
+                                    {props.donors[2].map((donor) => {
+                                        return <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>{donor.name}</h1>
+                                    })}
                                 </div>
                             </div>
                         </>

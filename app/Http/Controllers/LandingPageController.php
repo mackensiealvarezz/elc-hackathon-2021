@@ -10,13 +10,16 @@ class LandingPageController extends Controller
 {
     public function index()
     {
-        return Inertia::render('LandingPage/LandingPage', [
-            // 'donors' => array_chunk(User::where('donor',true)->get('name'),4)
-            'donors' =>  User::where('donor',true)->get('name')[0]
-        ]);
-    }
+        $donors = User::where('donor',true)->get('name');
 
-    public function donorChunk($donors,$num) {
-        return array_chunk($donors,$num);
+        $names = array();
+
+        for ($i=0;$i<sizeof($donors);$i++) {
+            array_push($names,$donors[$i]);
+        }
+
+        return Inertia::render('LandingPage/LandingPage', [
+            'donors' => array_chunk($names,3)
+        ]);
     }
 }
