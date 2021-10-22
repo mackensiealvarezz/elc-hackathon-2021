@@ -46,7 +46,8 @@ class HandleInertiaRequests extends Middleware
                 'cartInfo' => [
                     'id' => $cartId,
                     'count' => $count
-                ]
+                ],
+                'voiceToken' => optional($request->user())->generateToken()
 
             ],
         ]);

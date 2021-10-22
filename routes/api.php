@@ -19,9 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('voice/answer', [VoiceIVRController::class, 'answer'])->name('voice.answer');
-Route::post('voice/pin', [VoiceIVRController::class, 'pin'])->name('voice.pin');
 Route::post('voice/greetings', [VoiceIVRController::class, 'greetings'])->name('voice.greetings');
-Route::post('voice/menu', [VoiceIVRController::class, 'menu'])->name('voice.menu');
-Route::post('voice/getWomenSubCategories', [VoiceIVRController::class, 'getWomenSubCategories'])->name('voice.getWomenSubCategories');
-Route::post('voice/productlist', [VoiceIVRController::class, 'productlist'])->name('voice.productlist');
+Route::post('voice/shopping', [VoiceIVRController::class, 'shopping'])->name('voice.shopping');
+Route::post('voice/categories', [VoiceIVRController::class, 'categories'])->name('voice.categories');
+Route::post('voice/process_categories', [VoiceIVRController::class, 'process_categories'])->name('voice.process_categories');
+Route::post('voice/viewProduct', [VoiceIVRController::class, 'viewProduct'])->name('voice.viewProduct');
+Route::post('voice/purchase', [VoiceIVRController::class, 'purchase'])->name('voice.purchase');
+Route::post('voice/viewCart', [VoiceIVRController::class, 'viewCart'])->name('voice.viewCart');

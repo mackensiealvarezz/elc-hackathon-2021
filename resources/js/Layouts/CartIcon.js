@@ -3,11 +3,10 @@ import { ShoppingBagIcon } from "@heroicons/react/outline"
 import { Link } from "@inertiajs/inertia-react"
 import { Inertia } from '@inertiajs/inertia';
 
-export default function CartIcon({ cartInfo }) {
+export default function CartIcon({ cartInfo, auth }) {
     const [count, setCount] = useState(cartInfo.count);
     const cartId = cartInfo.id;
     useEffect(() => {
-        console.log('ran');
         if (cartId) {
             Echo.private(`Cart.${cartId}`)
                 .listen('CartUpdatedEvent', (e) => {
@@ -19,7 +18,6 @@ export default function CartIcon({ cartInfo }) {
         }
 
     }, [cartId])
-
 
     return (
         <div className="ml-4 flow-root lg:ml-6">

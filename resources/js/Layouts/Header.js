@@ -4,6 +4,7 @@ import { MenuIcon, SearchIcon, ShoppingBagIcon, XIcon } from '@heroicons/react/o
 import classNames from '@/classNames'
 import { Link } from '@inertiajs/inertia-react'
 import CartIcon from './CartIcon'
+import VoiceChat from '@/Layouts/VoiceChat'
 
 const navigation = {
     categories: [
@@ -232,6 +233,7 @@ export default function Header(props) {
                                         </Link>
                                     </div>
                                     <div className="flow-root">
+
                                         <span className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                             Pin:
                                             <button className="font-bold" onClick={() => setShowPin(!showPin)} >{showPin ? props.auth.user.pin : '***'}</button>
@@ -404,6 +406,7 @@ export default function Header(props) {
                                             Welcome {props.auth.user.name}
                                         </Link>
                                         <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                                        <VoiceChat auth={props.auth} />
                                         <span className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                             Pin:
                                             <button className="font-bold" onClick={() => setShowPin(!showPin)} >{showPin ? props.auth.user.pin : '***'}</button>
@@ -422,7 +425,7 @@ export default function Header(props) {
                                 )}
 
                                 {/* Cart */}
-                                <CartIcon cartInfo={props.auth.cartInfo} />
+                                <CartIcon cartInfo={props.auth.cartInfo} auth={props.auth} />
                             </div>
                         </div>
                     </div>
