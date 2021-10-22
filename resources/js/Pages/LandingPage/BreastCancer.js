@@ -1,7 +1,44 @@
+import { defaultsDeep } from "lodash";
+import { array, string } from "prop-types";
 import React from "react";
 import Ticker from "react-ticker";
 
 const arr = ['hi','bye','hello','goodybe','text','lorem'];
+
+
+function tickerText (donorList, pos, num) {
+    var arrs = [];
+
+    console.log(donorList);
+
+    for (let j=0;j<num;j++) {
+        var arr = [];
+        arrs[j] = arr;
+    }
+
+console.log(arrs);
+
+    // for (let i=0;i<donorList.length-1;i++) {
+    //     if (i>donorList.length-1) {
+    //         arr[i%4].push(donorList[i]);
+    //     } else {
+    //         arrs[i][0]=donorList[i];
+    //     }
+    // }
+
+    // var k = 0;
+    // for (let i=0;i<donorList.length;i++) {
+    //     if (i<=arrs.length-1) {
+    //         arrs[i]=donorList[i].name;
+    //     } else {
+    //         arr[i-arrs.length-1]=donorList[i];
+    //     }
+    // }
+
+
+    return 'text';
+    // names.slice(pos,(donorList.length/num)+pos).join('ㅤㅤㅤㅤㅤㅤㅤ');
+}
 
 export default function BreastCancer(donors) {
 
@@ -19,15 +56,20 @@ export default function BreastCancer(donors) {
                 <Ticker>
                     {({ index }) => (
                     <>
+                    <div>
                         <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>
-                            {arr.join('\t')}
-                        </h1><br />
-                        <h1 style={{opacity: '75%'}}>
-                            {donors.donors[0].name}
-                        </h1><br />
-                        <h1 style={{opacity: '75%'}}>
-                            This is the Headline of element #{index}!
+                            {/* {tickerText(donors.donors,0,4)} */}Shawn WeigandㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤMackensie Alvarezㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
+                        </h1><br /><br />
+                        <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>
+                        ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ{tickerText(donors.donors,1,4)}
+                        </h1><br /><br />
+                        <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>
+                        ㅤㅤㅤㅤㅤ{tickerText(donors.donors,2,4)}
+                        </h1><br /><br />
+                        <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>
+                        ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ{tickerText(donors.donors,3,4)}
                         </h1>
+                    </div>
                     </>
                     )}
                 </Ticker>
