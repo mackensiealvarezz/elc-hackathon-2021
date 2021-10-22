@@ -32,7 +32,14 @@ Broadcast::channel('User.{id}.ShowProduct', function($user, $id){
     return (int) $user->id === (int) $id;
 });
 
-
 Broadcast::channel('User.{id}.ShowCart', function($user, $id){
+    return (int) $user->id === (int) $id;
+});
+
+Broadcast::channel('User.{id}.AddedProductToCart', function($user, $id){
+    return (int) $user->id === (int) $id;
+});
+
+Broadcast::channel('User.{id}.RemovedProductToCart', function($user, $id){
     return (int) $user->id === (int) $id;
 });

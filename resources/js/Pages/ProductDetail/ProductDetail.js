@@ -31,8 +31,6 @@ const ProductDetail = (props) => {
     const onClickHandler = (e) => {
         e.preventDefault()
         post(route('addToBag'))
-        toast("Added to bag!")
-
     }
 
 

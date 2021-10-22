@@ -3,6 +3,7 @@ import { Device } from "twilio-client"
 import { Link } from "@inertiajs/inertia-react"
 import { Inertia } from '@inertiajs/inertia';
 import { PhoneIcon, PhoneIncomingIcon } from "@heroicons/react/outline";
+import { toast } from "react-toastify";
 
 export default function VoiceChat(props) {
 
@@ -69,6 +70,17 @@ export default function VoiceChat(props) {
         Echo.private(`User.${props.auth.user.id}.ShowCart`)
             .listen('ShowCartEvent', (e) => {
                 Inertia.visit(route('cart'))
+            })
+
+        Echo.private(`User.${props.auth.user.id}.AddedProductToCart`)
+            .listen('AddedProductToCartEvent', (e) => {
+                toast("Added to bag!")
+                console.log('ads');
+            })
+
+        Echo.private(`User.${props.auth.user.id}.RemovedProductToCart`)
+            .listen('RemovedProductToCartEvent', (e) => {
+                toast("Removed from bag!")
             })
     }, [])
 
