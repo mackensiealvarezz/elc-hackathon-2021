@@ -24,7 +24,7 @@ class ShoppingCartController extends Controller
     public function deleteFromBag(Request $request)
     {
         $cart = Cart::find($request->cart_id);
-        dd($cart->products());
+        // dd($cart->products());
         $cart->products()->detach($request->product_id);
         $cart->updateTotal();
         return back();

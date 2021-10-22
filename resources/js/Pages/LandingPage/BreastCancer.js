@@ -5,6 +5,11 @@ import Ticker from "react-ticker";
 
 const arr = ['hi', 'bye', 'hello', 'goodybe', 'text', 'lorem'];
 
+function tickerText(donorList) {
+
+    // for (let i=0;i<donorList)
+    // console.log(donorList);
+}
 
 // function tickerText(donorList, pos, num) {
 //     var arrs = [];
@@ -58,10 +63,12 @@ export default function BreastCancer(props) {
                         <>
                             <div className="space-y-10">
                                 <div className="flex space-x-10">
-                                    {props.donors[0].map((donor) => {
+                                    {/* {tickerText(props.donors)} */}
+                                    {/* {props.donors[0].map((donor) => {
 
-                                        <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>{donor.name}</h1>
-                                    })}
+                                        return <h1 style={{ paddingRight: "2em", opacity: "50%", color: "white" }}>{donor.name}</h1>
+                                    })} */}
+                                    {console.log(props.donors)}
 
                                 </div>
                                 <div className="flex space-x-5">
