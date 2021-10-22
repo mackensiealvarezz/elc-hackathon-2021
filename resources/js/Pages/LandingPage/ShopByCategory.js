@@ -27,7 +27,7 @@ const categories = [
     },
     {
         name: 'Candle', href: 'search',
-        data: { categories: ['candle'] }, imageSrc: 'https://i1.adis.ws/i/tom_ford/T55J_OC_OS_A?$large$&bg=rgb(255,255,255)'
+        data: { categories: ['candles'] }, imageSrc: 'https://i1.adis.ws/i/tom_ford/T55J_OC_OS_A?$large$&bg=rgb(255,255,255)'
     },
 ]
 

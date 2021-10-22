@@ -24,7 +24,7 @@ class ProductSeeder extends Seeder
             'description' => 'LOST CHERRYS CANDY-LIKE GLEAM OF EXOTIC BLACK CHERRY AND LIQUEUR, TOUCHED WITH TEASING ALMOND, GIVES WAY TO A TURKISH ROSE AND JASMINE SAMBAC BLEND THAT PENETRATE THE SENSES. THE FULL-BODIED PERFUME ATTAINS FANTASY-LIKE LEVELS OF INSATIABILITY',
             'image' => 'https://i1.adis.ws/i/tom_ford/T6-LOSTCHERRY_OC_50ML_A?$pdp_hero_mob$&&bg=rgb(255,255,255)',
             'item_detail' => 'LOST CHERRY IS CONTAINED IN A LUSCIOUS, DEEP CHERRY-RED BOTTLE. CAPTURING THE SCENT’S DICHOTOMY OF SWEET AND DARK, THE FLACON IS ADORNED WITH A PALE PINK LABEL, THE COLOR OF CHERRY BLOSSOMS ',
-            'categories' => ['women', 'fragrance', 'best sellers'],
+            'categories' => ['women', 'fragrance', 'best_sellers'],
         ]);
 
         Product::create([
@@ -36,14 +36,14 @@ class ProductSeeder extends Seeder
             'categories' => ['women', 'fragrance', 'best sellers'],
         ]);
 
-        // Fragrance(DISCOVER PRIVATE BLEND)
+        // Fragrance(DISCOVER_PRIVATE_BLEND)
         Product::create([
             'name' => 'SANTAL BLUSH',
             'price' => 263,
             'description' => ' TOM FORD SANTAL BLUSH IS A MESMERIZING, SPICY WOOD ORIENTAL. A TEXTURED FUSION OF CREAMY SANDALWOOD AND EXOTIC EASTERN SPICES IS ENHANCED WITH INTOXICATING FLORALS AND SUMPTUOUS WOODS TO CREATE SOFT, NAKED GLAMOUR WITH A MYSTERIOUS SPIRIT OF MODERN EARTHINESS. ITS NUDE JUICE AND BLUSH COLORED PACKAGING ARE AS SENSUAL AS A BEAUTIFULLY CONTOURED NUDE FACE',
             'image' => 'https://i1.adis.ws/i/tom_ford/T0-SANTAL_OC_50ML_A?$large$&bg=rgb(255,255,255)',
             'item_detail' => 'SANTAL BLUSH IS IN A WOOD COLOR BOTTLE WITH A PULL OFF SQUARE CAP, THE BODY OF THE BOTTLE IS RECTANGLUAR, WITH A GOLD LABLE ON THE FRONT',
-            'categories' => ['women', 'fragrance', 'discover private blend'],
+            'categories' => ['women', 'fragrance', 'discover_private_blend'],
         ]);
 
         Product::create([
@@ -71,7 +71,7 @@ class ProductSeeder extends Seeder
             'description' => 'CAFE ROSE DESCENDS INTO A HIDDEN LABYRINTH, WHERE ROSES FINE BREEDING GIVES WAY TO DARKER PLEASURES',
             'image' => 'https://i1.adis.ws/i/tom_ford/T1-CAFE-ROSE_OC_50ML_A?$pdp_hero_mob$&&bg=rgb(255,255,255)',
             'item_detail' => 'CAFE ROSE IS IN A WOOD COLOR BOTTLE WITH A PULL OFF SQUARE CAP, THE BODY OF THE BOTTLE IS RECTANGLUAR, WITH A GOLD LABLE ON THE FRONT',
-            'categories' => ['women', 'fragrance', 'discover private blend'],
+            'categories' => ['women', 'fragrance', 'discover_private_blend'],
         ]);
 
         Product::create([
@@ -90,7 +90,7 @@ class ProductSeeder extends Seeder
             'description' => ' INSPIRED BY TOM FORDS PRIVATE ROSE GARDEN, ROSE PRICK IS A WILD BOUQUET OF BEAUTIFUL BREEDS OF ROSE - ROSE DE MAI, TURKISH AND BULGARIAN. SHARP AND PRISTINE, THE PIERCING PRICKLES OF THE STEMS HOOK ONTO EACH OTHER, BONDING THEIR BLOOMS IN PINK PERFECTION. A ROSE BY ANY OTHER NAME, WOULDNT BE TOM FORD',
             'image' => 'https://i1.adis.ws/i/tom_ford/T8-ROSE_OC_50ML_A?$pdp_hero_mob$&&bg=rgb(255,255,255)',
             'item_detail' => 'ROSE PRICK IN A LIGHT PINK COLOR BOTTLE WITH A PULL OFF SQUARE CAP, THE BODY OF THE BOTTLE IS RECTANGLUAR, WITH A BLACK LABLE ON THE FRONT',
-            'categories' => ['women', 'fragrance', 'private blend'],
+            'categories' => ['women', 'fragrance', 'private_blend'],
         ]);
 
         Product::create([
@@ -311,7 +311,7 @@ class ProductSeeder extends Seeder
             'description' => 'FROM SECOND-SKIN NUDES TO BLAZING REDS, EACH LIP COLOR DELIVERS A MOISTURIZING, FADE-RESISTANT, COLOR-TRUE FINISH FOR EIGHT HOURS OF INTENSE, SATURATED SHADE FIDELITY AND IMPECCABLE POLISH OFFERED IN ICONIC TOM FORD PACKAGING',
             'image' => 'https://i1.adis.ws/i/tom_ford/T0T3_WILDGINGER_OS_A?$pdp_hero_dsk$&bg=rgb(255,255,255)',
             'item_detail' => 'THE 15 WILD GINGER A BROWN RECTANGLUAR LIPSTICK WITH A GOLD CAP, THE TIP IS OVAL SHAPED',
-            'categories' => ['women', 'lips', 'lip color'],
+            'categories' => ['women', 'lips', 'lip_color'],
         ]);
 
         Product::create([
@@ -320,7 +320,7 @@ class ProductSeeder extends Seeder
             'description' => 'FROM SECOND-SKIN NUDES TO BLAZING REDS, EACH LIP COLOR DELIVERS A MOISTURIZING, FADE-RESISTANT, COLOR-TRUE FINISH FOR EIGHT HOURS OF INTENSE, SATURATED SHADE FIDELITY AND IMPECCABLE POLISH OFFERED IN ICONIC TOM FORD PACKAGING',
             'image' => 'https://i1.adis.ws/i/tom_ford/T0T3_EXOTICA_OS_A?$pdp_hero_dsk$&bg=rgb(255,255,255)',
             'item_detail' => 'THE 84 EXOTICA A BROWN RECTANGLUAR LIPSTICK WITH A GOLD CAP, THE TIP IS OVAL SHAPED',
-            'categories' => ['women', 'lips', 'lip color'],
+            'categories' => ['women', 'lips', 'lip_color'],
         ]);
 
         //LIPS(BOYS & GIRLS)
@@ -331,7 +331,7 @@ class ProductSeeder extends Seeder
             'description' => '50 BOYS MEET 50 GIRLS. TOM FORDS CELEBRATED CLUTCH-SIZED LIPS AND BOYS COLLECTION. NAMED AFTER MEN AND WOMEN HE ADMIRES, FROM INTIMATES TO COLLABORATORS FROM AROUND THE WORLD. DESIGNED TO BE WORN ON THEIR OWN OR LAYERED WITH ONE ANOTHER, EACH TRANSFORMING COLOR AND FINISH AMPLIFIES A WOMAN OR MANS INDIVIDUALITY WHILE INCITING AN INSATIABLE DESIRE TO TRY MORE THAN ONE. THE DECADENT WARDROBE OF RICH, SPECIALLY TREATED PIGMENTS ARE BLENDED TO DELIVER PURE COLOR IN ULTRA-KISSABLE MATTE, CREAM AND METALLIC FINISHES',
             'image' => 'https://i1.adis.ws/i/tom_ford/T31H-1_BELLA_OS_A?sm=aspect&aspect=3.14:4&w=747&img404=img404&bg=rgb(218,218,218)',
             'item_detail' => 'THE 35 BELLA A WHITE RECTANGLUAR LIPSTICK WITH A GOLD OUTLINE AND A GOLD CAP, THE TIP IS OVAL SHAPED',
-            'categories' => ['women', 'lips', 'boys & girls'],
+            'categories' => ['women', 'lips', 'boys_girls'],
         ]);
 
         Product::create([
@@ -340,7 +340,7 @@ class ProductSeeder extends Seeder
             'description' => '50 BOYS MEET 50 GIRLS. TOM FORDS CELEBRATED CLUTCH-SIZED LIPS AND BOYS COLLECTION. NAMED AFTER MEN AND WOMEN HE ADMIRES, FROM INTIMATES TO COLLABORATORS FROM AROUND THE WORLD. DESIGNED TO BE WORN ON THEIR OWN OR LAYERED WITH ONE ANOTHER, EACH TRANSFORMING COLOR AND FINISH AMPLIFIES A WOMAN OR MANS INDIVIDUALITY WHILE INCITING AN INSATIABLE DESIRE TO TRY MORE THAN ONE. THE DECADENT WARDROBE OF RICH, SPECIALLY TREATED PIGMENTS ARE BLENDED TO DELIVER PURE COLOR IN ULTRA-KISSABLE MATTE, CREAM AND METALLIC FINISHES',
             'image' => 'https://i1.adis.ws/i/tom_ford/T31H-1_07STERLING_OS_A?sm=aspect&aspect=3.14:4&w=648&img404=img404&bg=rgb(218,218,218)',
             'item_detail' => 'THE 07 STERLING A BROWN RECTANGLUAR LIPSTICK WITH A GOLD CAP, THE TIP IS OVAL SHAPED',
-            'categories' => ['women', 'lips', 'boys & girls'],
+            'categories' => ['women', 'lips', 'boys_girls'],
         ]);
 
         //LIPS(LIP LACQUER)
@@ -350,7 +350,7 @@ class ProductSeeder extends Seeder
             'description' => 'TOM FORD ELEVATES LIQUID LIPSTICK IN A MOISTURE RICH, SOFT-MATTE FORMULA. INTENSE, SATURATED COLOR COATS LIPS WITH SUPPLE COMFORT. PIGMENT-MAXIMIZING TECHNOLOGY ENVELOPS CONCENTRATED PIGMENTS IN ULTRA-CUSHION-LIKE EMOLLIENTS, CREATING A SMOOTH, SECOND-SKIN FILM ON LIPS. 10 LIQUID MATTES PAINT ON MINERAL POWDER-INFUSED COLOR, FROM THE PLAYFUL BERRY OF HABITUAL TO THE COMMANDING REDS OF JAGUAR AND OVERPOWER',
             'image' => 'https://i1.adis.ws/i/tom_ford/T725_PUSSYCAT_OS_A?$pdp_hero_dsk$&bg=rgb(255,255,255)',
             'item_detail' => 'THE PUSSYCAT A BROWN RECTANGLUAR LIPSTICK WITH A BROWN CAP AND A GOLD LABEL BELOW THE CAP, THE TIP IS OVAL SHAPED',
-            'categories' => ['women', 'lips', 'lip lacquer'],
+            'categories' => ['women', 'lips', 'lip_lacquer'],
         ]);
 
         Product::create([
@@ -359,7 +359,7 @@ class ProductSeeder extends Seeder
             'description' => 'TOM FORD ELEVATES LIQUID LIPSTICK IN A MOISTURE RICH, SOFT-MATTE FORMULA. INTENSE, SATURATED COLOR COATS LIPS WITH SUPPLE COMFORT. PIGMENT-MAXIMIZING TECHNOLOGY ENVELOPS CONCENTRATED PIGMENTS IN ULTRA-CUSHION-LIKE EMOLLIENTS, CREATING A SMOOTH, SECOND-SKIN FILM ON LIPS. 10 LIQUID MATTES PAINT ON MINERAL POWDER-INFUSED COLOR, FROM THE PLAYFUL BERRY OF HABITUAL TO THE COMMANDING REDS OF JAGUAR AND OVERPOWER',
             'image' => 'https://i1.adis.ws/i/tom_ford/T725_69NIGHTMAUVE_OS_A?$pdp_hero_mob$&bg=rgb(255,255,255)',
             'item_detail' => 'THE PUSSYCAT A BROWN RECTANGLUAR LIPSTICK WITH A BROWN CAP AND A GOLD LABEL BELOW THE CAP, THE TIP IS OVAL SHAPED',
-            'categories' => ['women', 'lips', 'lip lacquer'],
+            'categories' => ['women', 'lips', 'lip_lacquer'],
         ]);
 
         Product::create([
@@ -368,7 +368,7 @@ class ProductSeeder extends Seeder
             'description' => 'TOM FORD ELEVATES LIQUID LIPSTICK IN A MOISTURE RICH, SOFT-MATTE FORMULA. INTENSE, SATURATED COLOR COATS LIPS WITH SUPPLE COMFORT. PIGMENT-MAXIMIZING TECHNOLOGY ENVELOPS CONCENTRATED PIGMENTS IN ULTRA-CUSHION-LIKE EMOLLIENTS, CREATING A SMOOTH, SECOND-SKIN FILM ON LIPS. 10 LIQUID MATTES PAINT ON MINERAL POWDER-INFUSED COLOR, FROM THE PLAYFUL BERRY OF HABITUAL TO THE COMMANDING REDS OF JAGUAR AND OVERPOWER',
             'image' => 'https://i1.adis.ws/i/tom_ford/T725_OVERPOWER_OS_A?$pdp_hero_dsk$&bg=rgb(255,255,255)',
             'item_detail' => 'THE OVERPOWER A BROWN RECTANGLUAR LIPSTICK WITH A BROWN CAP AND A GOLD LABEL BELOW THE CAP, THE TIP IS OVAL SHAPED',
-            'categories' => ['women', 'lips', 'lip lacquer'],
+            'categories' => ['women', 'lips', 'lip_lacquer'],
         ]);
 
         //LIPS(LIP GLOSS)
@@ -378,7 +378,7 @@ class ProductSeeder extends Seeder
             'description' => 'THE NEXT EVOLUTION OF LIP GLOSS GOES LIGHT-AS-AIR IN SHEER-TO MEDIUM COVERAGE. INFUSED WITH THREE OILS - AVOCADO, OLIVE AND JOJOBA - AND HOLLOW POWDERS FOR AIRY COMFORT, THE LIQUID BALM GLACE HYDRATES LIPS WITH FULL-LOOKING, ZERO-GRAVITY WEAR AND GLEAM.',
             'image' => 'https://i1.adis.ws/i/tom_ford/T76A_INTHEBUFF_OS_A?$pdp_hero_mob$&&bg=rgb(255,255,255)',
             'item_detail' => 'IN THE BUFF A CLEAR RECTANGLUAR LIP GLOSS WITH A BROWN CAP AND A GOLD LABEL BELOW THE CAP, THE TIP IS OVAL SHAPED',
-            'categories' => ['women', 'lips', 'lip gloss'],
+            'categories' => ['women', 'lips', 'lip_gloss'],
         ]);
 
         Product::create([
@@ -387,7 +387,7 @@ class ProductSeeder extends Seeder
             'description' => 'THE NEXT EVOLUTION OF LIP GLOSS GOES LIGHT-AS-AIR IN SHEER-TO MEDIUM COVERAGE. INFUSED WITH THREE OILS - AVOCADO, OLIVE AND JOJOBA - AND HOLLOW POWDERS FOR AIRY COMFORT, THE LIQUID BALM GLACE HYDRATES LIPS WITH FULL-LOOKING, ZERO-GRAVITY WEAR AND GLEAM.',
             'image' => 'https://i1.adis.ws/i/tom_ford/T76A_09AURA_OS_A?$pdp_hero_mob$&&bg=rgb(255,255,255)',
             'item_detail' => '09 AURA A CLEAR RECTANGLUAR LIP GLOSS WITH A BROWN CAP AND A GOLD LABEL BELOW THE CAP, THE TIP IS OVAL SHAPED',
-            'categories' => ['women', 'lips', 'lip gloss'],
+            'categories' => ['women', 'lips', 'lip_gloss'],
         ]);
 
         Product::create([
@@ -396,7 +396,7 @@ class ProductSeeder extends Seeder
             'description' => 'THE NEXT EVOLUTION OF LIP GLOSS GOES LIGHT-AS-AIR IN SHEER-TO MEDIUM COVERAGE. INFUSED WITH THREE OILS - AVOCADO, OLIVE AND JOJOBA - AND HOLLOW POWDERS FOR AIRY COMFORT, THE LIQUID BALM GLACE HYDRATES LIPS WITH FULL-LOOKING, ZERO-GRAVITY WEAR AND GLEAM.',
             'image' => 'https://i1.adis.ws/i/tom_ford/T76A_20PHANTOME_OS_A?$pdp_hero_dsk$&bg=rgb(255,255,255)',
             'item_detail' => '20 PHANTOME A CLEAR RECTANGLUAR LIP GLOSS WITH A BROWN CAP AND A GOLD LABEL BELOW THE CAP, THE TIP IS OVAL SHAPED',
-            'categories' => ['women', 'lips', 'lip gloss'],
+            'categories' => ['women', 'lips', 'lip_gloss'],
         ]);
 
         //MEN(BEARD)
