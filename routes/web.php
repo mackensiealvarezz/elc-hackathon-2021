@@ -23,5 +23,7 @@ Route::post('/addToBag', [ProductDetailController::class, 'addToBag'])->middlewa
 Route::post('/deleteFromBag', [ShoppingCartController::class, 'deleteFromBag'])->middleware(['auth', 'verified'])->name('deleteFromBag');
 Route::get('/cart', [ShoppingCartController::class, 'index'])->middleware(['auth', 'verified'])->name('cart');
 Route::get('/search', [ProductListController::class, 'index'])->name('search');
+Route::post('/checkout', [ShoppingCartController::class, 'checkout'])->middleware(['auth', 'verified'])->name('checkout');
+Route::post('/clearCart', [ShoppingCartController::class, 'clearCart'])->middleware(['auth', 'verified'])->name('clearCart');
 
 require __DIR__ . '/auth.php';

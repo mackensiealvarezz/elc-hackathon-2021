@@ -28,7 +28,7 @@ const navigation = {
             sections: [
                 {
                     id: 'fragrance',
-                    name: 'Fragrance',
+                    name: 'FRAGRANCE',
                     items: [
                         { name: 'BEST SELLERS', href: 'search', data: { categories: ['women', 'fragrance', 'best_sellers'] } },
                         { name: 'DISCOVER PRIVATE BLEND', href: 'search', data: { categories: ['women', 'fragrance', 'discover_private_blend'] } },
@@ -59,6 +59,16 @@ const navigation = {
                         { name: 'LIP GLOSS', href: 'search', data: { categories: ['women', 'lips', 'lip_gloss'] } },
                     ],
                 },
+                {
+                    id: 'EYES',
+                    name: 'EYES',
+                    items: [
+                        { name: 'BROWS', href: 'search', data: { categories: ['women', 'eyes', 'brows'] } },
+                        { name: 'EYESHADOW', href: 'search', data: { categories: ['women', 'eyes', 'eyeshadow'] } },
+                        { name: 'LINER', href: 'search', data: { categories: ['women', 'eyes', 'liner'] } },
+                        { name: 'MASCARA', href: 'search', data: { categories: ['women', 'eyes', 'mascara'] } },
+                    ],
+                },
             ],
         },
         {
@@ -82,7 +92,7 @@ const navigation = {
             sections: [
                 {
                     id: 'fragrance',
-                    name: 'Fragrance',
+                    name: 'FRAGRANCE',
                     items: [
                         { name: 'BEST SELLERS', href: 'search', data: { categories: ['men', 'fragrance'] } },
                         { name: 'DISCOVER PRIVATE BLEND', href: 'search', data: { categories: ['men', 'fragrance', 'discover_private_blend'] } },

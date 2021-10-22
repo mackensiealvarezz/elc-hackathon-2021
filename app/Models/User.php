@@ -24,7 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'pin'
+        'pin',
+        'donor'
     ];
 
     /**
@@ -46,6 +47,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function makeDonor() {
+        $this->update(['donor' => true]);
+    }
 
     // protected $with = ['cart'];
 
