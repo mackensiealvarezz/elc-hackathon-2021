@@ -7,7 +7,7 @@ import { Inertia } from '@inertiajs/inertia';
 export default function OrderSummary({ cart, user }) {
 
     const { data, setData, post } = useForm({
-        donation: 0,
+        donation: null,
     })
 
     let [isOpen, setIsOpen] = useState(false)
@@ -35,8 +35,8 @@ export default function OrderSummary({ cart, user }) {
     }
 
     function donorMessage() {
-        if (cart.donate != null && cart.donate != 0) {
-            return <p className="text-pink-700">Thank you for donating ${cart.donate} towards the Breast Cancer Research Foundation!</p>;
+        if (data.donation != null && data.donation != 0) {
+            return <p className="text-pink-700">Thank you for donating ${data.donation} towards the Breast Cancer Research Foundation!</p>;
         } else {
             return;
         }
@@ -65,7 +65,7 @@ export default function OrderSummary({ cart, user }) {
                                         $
                                     </span>
                                 </div>
-                                <input type="number" min="0" step="1" name="donation" id="price" value={data.donation} onChange={handleChange} className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0" />
+                                <input type="number" min="0" step="1" name="donation" id="price" onChange={handleChange} className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0" />
                                 <div className="absolute inset-y-0 right-0 flex items-center">
                                     <label htmlFor="currency" className="sr-only">Currency</label>
                                     <select id="currency" name="currency" className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
