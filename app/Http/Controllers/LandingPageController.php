@@ -12,7 +12,6 @@ class LandingPageController extends Controller
 {
     public function index()
     {
-
         $donors = User::where('donor',true)->get('name');
 
         $names = array();
