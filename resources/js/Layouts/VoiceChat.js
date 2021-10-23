@@ -64,7 +64,6 @@ export default function VoiceChat(props) {
 
         Echo.private(`User.${props.auth.user.id}.ShowProduct`)
             .listen('ShowProductDetailEvent', (e) => {
-                console.log(e);
                 Inertia.visit(route('product', { name: e.product_name }))
             })
         Echo.private(`User.${props.auth.user.id}.ShowCart`)
@@ -75,7 +74,6 @@ export default function VoiceChat(props) {
         Echo.private(`User.${props.auth.user.id}.AddedProductToCart`)
             .listen('AddedProductToCartEvent', (e) => {
                 toast("Added to bag!")
-                console.log('ads');
             })
 
         Echo.private(`User.${props.auth.user.id}.RemovedProductToCart`)

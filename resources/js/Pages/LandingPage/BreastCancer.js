@@ -3,7 +3,6 @@ import React from "react";
 import Ticker from "react-ticker";
 
 export default function BreastCancer(props) {
-    console.log(props.donors)
     return (
         <section aria-labelledby="cause-heading">
             <div className="relative px-6 py-32 bg-gray-800 sm:py-12 sm:px-12 lg:px-16">
