@@ -9,9 +9,11 @@ use Illuminate\Http\Request;
 use App\Events\ShowCartEvent;
 use Twilio\TwiML\VoiceResponse;
 use App\Events\CartUpdatedEvent;
+use App\Events\UpdateDonationEvent;
 use App\Events\SearchProductListEvent;
 use App\Events\ShowProductDetailEvent;
 use App\Events\AddedProductToCartEvent;
+use App\Events\DonatedEvent;
 use App\Events\RemovedProductToCartEvent;
 
 class VoiceIVRController extends Controller
@@ -283,13 +285,131 @@ class VoiceIVRController extends Controller
 
         return [
             'actions' => [
+              [
+                "collect" => [
+                    "name" => "collect_checkout",
+                    "questions" => [
+                        [
+                            "question" => "Would you like to donate to our breast cancer research fund? Please say YES OR NO",
+                            "name" => "selected_donation",
+                            "type" => "Twilio.YES_NO",
+                            "validate" => [
+                                "max_attempts" => [
+                                    "redirect" => "task://collect_fallback",
+                                    "num_attempts" => 3
+                                ]
+                            ]
+                        ],
+
+                    ],
+                    "on_complete" => [
+                        "redirect" => "https://elc.mackensiealvarez.com/api/voice/process_checkout"
+                    ]
+                ]
+              ]
+            ]
+        ];
+    }
+
+    public function process_checkout(Request $request)
+    {
+
+        $json = $request->Memory;
+        $data = json_decode($json, true);
+        //Yes Or No
+        $selected_donation = $data['twilio']['collected_data']['collect_checkout']['answers']['selected_donation']['answer'];
+
+        if($selected_donation == 'Yes')
+        {
+
+            return [
+                'actions' => [
+                  [
+                    "collect" => [
+                        "name" => "collect_donation",
+                        "questions" => [
+                            [
+                                "question" => "How much would you like to donate?",
+                                "name" => "donation_amount",
+                                "type" => "Twilio.NUMBER",
+                                "validate" => [
+                                    "max_attempts" => [
+                                        "redirect" => "task://collect_fallback",
+                                        "num_attempts" => 3
+                                    ]
+                                ]
+                            ],
+                        ],
+                        "on_complete" => [
+                            "redirect" => "https://elc.mackensiealvarez.com/api/voice/process_donation"
+                        ]
+                    ]
+                  ]
+                ]
+            ];
+
+        }
+
+        $user = User::find(Str::after($request->UserIdentifier, 'client:'));
+        $user->currentCart()->clearCart();
+
+        return [
+            'actions' => [
                 [
-                    'say' => "We have checked out your order"
-                ],
-                [
-                    'listen' => true
+                    'say' => "Thank you for shopping with us today. We have completed your order."
                 ]
             ]
         ];
     }
+
+
+
+    public function process_donation(Request $request)
+    {
+
+        $json = $request->Memory;
+        $data = json_decode($json, true);
+        //Yes Or No
+        $selected_donation = $data['twilio']['collected_data']['collect_donation']['answers']['donation_amount']['answer'];
+
+        $user = User::find(Str::after($request->UserIdentifier, 'client:'));
+        $cart = $user->currentCart();
+        event(new UpdateDonationEvent($cart, $selected_donation));
+        event(new CartUpdatedEvent($cart));
+
+
+        return [
+            'actions' => [
+                [
+                    'say' => "Thank you for choosing to donate \${$selected_donation}."
+                ],
+                [
+                    "redirect" => "https://elc.mackensiealvarez.com/api/voice/donated"
+                ]
+            ]
+        ];
+    }
+
+    public function donated(Request $request)
+    {
+
+        $user = User::find(Str::after($request->UserIdentifier, 'client:'));
+        $user->currentCart()->clearCart();
+        event(new DonatedEvent(Str::after($request->UserIdentifier, 'client:')));
+
+        return [
+            'actions' => [
+                [
+                    'say' => "You have also been added to our banner of donors."
+                ],
+                [
+                    'say' => "As a gift from us, here is a message from our CIO at Estee Lauder Companies"
+                ],
+                [
+                    'play' => "https://elc.mackensiealvarez.com/mp3/thankyou_donation.mp3"
+                ],
+            ]
+        ];
+    }
+
 }

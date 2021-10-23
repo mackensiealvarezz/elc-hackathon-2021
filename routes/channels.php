@@ -23,6 +23,11 @@ Broadcast::channel('Cart.{id}', function($user, $id){
 });
 
 
+Broadcast::channel('Cart.{id}.Donate', function($user, $id){
+    return (int) $user->id === Cart::find($id)->user_id;
+});
+
+
 Broadcast::channel('User.{id}.Search', function($user, $id){
     return (int) $user->id === (int) $id;
 });
@@ -41,5 +46,9 @@ Broadcast::channel('User.{id}.AddedProductToCart', function($user, $id){
 });
 
 Broadcast::channel('User.{id}.RemovedProductToCart', function($user, $id){
+    return (int) $user->id === (int) $id;
+});
+
+Broadcast::channel('User.{id}.DonatedEvent', function($user, $id){
     return (int) $user->id === (int) $id;
 });
