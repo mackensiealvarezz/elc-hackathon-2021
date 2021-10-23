@@ -42,7 +42,7 @@ class VoiceIVRController extends Controller
         return [
             'actions' => [
                 [
-                    'say' => "Would you like to filter by categories or search a certain product?"
+                    'say' => "Would you like to filter by categories or view your cart?"
                 ],
                 [
                     'listen' => true
@@ -50,7 +50,6 @@ class VoiceIVRController extends Controller
             ]
         ];
     }
-
 
     public function getCategoryProducts($user_id, $category)
     {
@@ -66,7 +65,10 @@ class VoiceIVRController extends Controller
         return [
             'actions' => [
                 [
-                    'say' => "We have {$productNames}. Which one are you interested in?"
+                    'say' => "We have {$productNames}. Please say 'let me see' and then the product name to get more details."
+                ],
+                [
+                    'say' => "For Example, let me see {$products[0]}"
                 ],
                 [
                     "listen" => true
@@ -74,8 +76,6 @@ class VoiceIVRController extends Controller
             ]
         ];
     }
-
-
 
     public function categories(Request $request)
     {
@@ -141,14 +141,27 @@ class VoiceIVRController extends Controller
     {
 
         $product_name = $request->Field_product_Value ?? null;
-        event(new ShowProductDetailEvent(Str::after($request->UserIdentifier, 'client:'), $product_name));
-
         $product = Product::whereName($product_name)->first();
+
+        if (!$product) {
+            return [
+                'actions' => [
+                    [
+                        'say' => "Sorry we couldn't find that product. Please try again"
+                    ],
+                    [
+                        'listen'  => true
+                    ]
+                ]
+            ];
+        }
+
+        event(new ShowProductDetailEvent(Str::after($request->UserIdentifier, 'client:'), $product_name));
 
         return [
             'actions' => [
                 [
-                    'say' => "{$product->name}. {$product->description}. Product details, {$product->item_detail}. This product cost {$product->price}."
+                    'say' => "{$product->name}. {$product->description}. Product details, {$product->item_detail}. This product cost \${$product->price}."
                 ],
                 [
                     'say' => "To Add to cart say: Purchase {$product->name}."
@@ -164,8 +177,23 @@ class VoiceIVRController extends Controller
     public function purchase(Request $request)
     {
         $product_name = $request->Field_product_Value ?? null;
-        $user = User::find(Str::after($request->UserIdentifier, 'client:'));
         $product = Product::whereName($product_name)->first();
+
+        if (!$product) {
+            return [
+                'actions' => [
+                    [
+                        'say' => "Sorry we couldn't find that product. Please try again"
+                    ],
+                    [
+                        'listen'  => true
+                    ]
+                ]
+            ];
+        }
+
+
+        $user = User::find(Str::after($request->UserIdentifier, 'client:'));
         $user->currentCart()->addProduct($product->id);
 
         return [
@@ -217,7 +245,7 @@ class VoiceIVRController extends Controller
         //Say every product
         foreach ($products as $product) {
             $actions[] = [
-                'say' => "{$product->name}, {$product->price} dollars."
+                'say' => "{$product->name}, \${$product->price}."
             ];
         }
 
@@ -243,8 +271,22 @@ class VoiceIVRController extends Controller
     public function remove(Request $request)
     {
         $product_name = $request->Field_product_Value ?? null;
-        $user = User::find(Str::after($request->UserIdentifier, 'client:'));
         $product = Product::whereName($product_name)->first();
+
+        if (!$product) {
+            return [
+                'actions' => [
+                    [
+                        'say' => "Sorry we couldn't find that product. Please try again"
+                    ],
+                    [
+                        'listen'  => true
+                    ]
+                ]
+            ];
+        }
+
+        $user = User::find(Str::after($request->UserIdentifier, 'client:'));
         $cart = $user->currentCart()->load('products');
 
         $cart->deleteProduct($product->id);
@@ -285,28 +327,28 @@ class VoiceIVRController extends Controller
 
         return [
             'actions' => [
-              [
-                "collect" => [
-                    "name" => "collect_checkout",
-                    "questions" => [
-                        [
-                            "question" => "Would you like to donate to our breast cancer research fund? Please say YES OR NO",
-                            "name" => "selected_donation",
-                            "type" => "Twilio.YES_NO",
-                            "validate" => [
-                                "max_attempts" => [
-                                    "redirect" => "task://collect_fallback",
-                                    "num_attempts" => 3
+                [
+                    "collect" => [
+                        "name" => "collect_checkout",
+                        "questions" => [
+                            [
+                                "question" => "Would you like to donate to our breast cancer research fund? Please say YES OR NO",
+                                "name" => "selected_donation",
+                                "type" => "Twilio.YES_NO",
+                                "validate" => [
+                                    "max_attempts" => [
+                                        "redirect" => "task://collect_fallback",
+                                        "num_attempts" => 3
+                                    ]
                                 ]
-                            ]
-                        ],
+                            ],
 
-                    ],
-                    "on_complete" => [
-                        "redirect" => "https://elc.mackensiealvarez.com/api/voice/process_checkout"
+                        ],
+                        "on_complete" => [
+                            "redirect" => "https://elc.mackensiealvarez.com/api/voice/process_checkout"
+                        ]
                     ]
                 ]
-              ]
             ]
         ];
     }
@@ -319,35 +361,33 @@ class VoiceIVRController extends Controller
         //Yes Or No
         $selected_donation = $data['twilio']['collected_data']['collect_checkout']['answers']['selected_donation']['answer'];
 
-        if($selected_donation == 'Yes')
-        {
+        if ($selected_donation == 'Yes') {
 
             return [
                 'actions' => [
-                  [
-                    "collect" => [
-                        "name" => "collect_donation",
-                        "questions" => [
-                            [
-                                "question" => "How much would you like to donate?",
-                                "name" => "donation_amount",
-                                "type" => "Twilio.NUMBER",
-                                "validate" => [
-                                    "max_attempts" => [
-                                        "redirect" => "task://collect_fallback",
-                                        "num_attempts" => 3
+                    [
+                        "collect" => [
+                            "name" => "collect_donation",
+                            "questions" => [
+                                [
+                                    "question" => "How much would you like to donate?",
+                                    "name" => "donation_amount",
+                                    "type" => "Twilio.NUMBER",
+                                    "validate" => [
+                                        "max_attempts" => [
+                                            "redirect" => "task://collect_fallback",
+                                            "num_attempts" => 3
+                                        ]
                                     ]
-                                ]
+                                ],
                             ],
-                        ],
-                        "on_complete" => [
-                            "redirect" => "https://elc.mackensiealvarez.com/api/voice/process_donation"
+                            "on_complete" => [
+                                "redirect" => "https://elc.mackensiealvarez.com/api/voice/process_donation"
+                            ]
                         ]
                     ]
-                  ]
                 ]
             ];
-
         }
 
         $user = User::find(Str::after($request->UserIdentifier, 'client:'));
@@ -361,8 +401,6 @@ class VoiceIVRController extends Controller
             ]
         ];
     }
-
-
 
     public function process_donation(Request $request)
     {
@@ -411,5 +449,4 @@ class VoiceIVRController extends Controller
             ]
         ];
     }
-
 }
