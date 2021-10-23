@@ -17,7 +17,6 @@ const filters = [
         options: [
             { value: 'women', label: 'Women' },
             { value: 'men', label: 'Men' },
-            { value: 'boys & girls', label: 'Boys & Girls' },
             { value: 'best_sellers', label: 'Best Sellers' },
             { value: 'signature', label: 'Signature' },
             { value: 'fragrance', label: 'Fragrance' },
@@ -36,7 +35,6 @@ const filters = [
             { value: 'lip_gloss', label: 'Lip Gloss' },
             { value: 'beard', label: 'Beard' },
             { value: 'body', label: 'Body' },
-            { value: 'face', label: 'Face' },
             { value: 'eyes', label: 'Eyes' },
             { value: 'brows', label: 'Brows' },
             { value: 'eyeshadow', label: 'Eyeshadow' },
