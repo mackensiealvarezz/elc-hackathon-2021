@@ -11,8 +11,6 @@ export default function CartItem({ product }) {
 
     const onClickHandler = (e) => {
         post(route('deleteFromBag'))
-        toast("Removed from bag!")
-
     }
 
     return (

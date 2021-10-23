@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Events\CartUpdatedEvent;
+use App\Events\AddedProductToCartEvent;
 use Illuminate\Database\Eloquent\Model;
+use App\Events\RemovedProductToCartEvent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Cart extends Model
@@ -35,6 +37,7 @@ class Cart extends Model
     {
         $this->products()->attach($product_id);
         $this->updateTotal();
+        event(new AddedProductToCartEvent($this->user_id));
         event(new CartUpdatedEvent($this));
     }
 
@@ -42,7 +45,9 @@ class Cart extends Model
     {
         $this->products()->detach($product_id);
         $this->updateTotal();
+        event(new RemovedProductToCartEvent($this->user_id));
         event(new CartUpdatedEvent($this));
+
     }
 
 

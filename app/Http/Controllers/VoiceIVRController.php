@@ -6,11 +6,13 @@ use App\Models\User;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Events\ShowCartEvent;
 use Twilio\TwiML\VoiceResponse;
 use App\Events\CartUpdatedEvent;
 use App\Events\SearchProductListEvent;
-use App\Events\ShowCartEvent;
 use App\Events\ShowProductDetailEvent;
+use App\Events\AddedProductToCartEvent;
+use App\Events\RemovedProductToCartEvent;
 
 class VoiceIVRController extends Controller
 {
@@ -244,12 +246,11 @@ class VoiceIVRController extends Controller
         $cart = $user->currentCart()->load('products');
 
         $cart->deleteProduct($product->id);
-        event(new ShowCartEvent($user->id));
 
         return [
             'actions' => [
                 [
-                    'say' => "We removed the product from your cart?.Anything else we can help you with? Or say checkout to finish your order."
+                    'say' => "We removed the product from your cart.Anything else we can help you with? Or say checkout to finish your order."
                 ],
                 [
                     'listen' => true
