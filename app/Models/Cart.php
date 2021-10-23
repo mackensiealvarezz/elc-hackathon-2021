@@ -18,6 +18,11 @@ class Cart extends Model
         'donate',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function products()
     {
         return $this->belongsToMany(Product::class, 'cart_products', 'cart_id', 'product_id')->withPivot('id');
@@ -48,6 +53,21 @@ class Cart extends Model
         event(new RemovedProductToCartEvent($this->user_id));
         event(new CartUpdatedEvent($this));
 
+    }
+
+    public function checkout($donation = 0)
+    {
+        $this->setDonate($donation);
+        $this->updateTotal();
+        $this->user->makeDonor();
+    }
+
+    public function clearCart()
+    {
+        $this->products()->detach();
+        $this->setDonate(null);
+        $this->updateTotal();
+        event(new CartUpdatedEvent($this));
     }
 
 

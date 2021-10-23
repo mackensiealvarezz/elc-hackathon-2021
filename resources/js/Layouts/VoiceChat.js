@@ -80,6 +80,12 @@ export default function VoiceChat(props) {
             .listen('RemovedProductToCartEvent', (e) => {
                 toast("Removed from bag!")
             })
+
+        Echo.private(`User.${props.auth.user.id}.DonatedEvent`)
+            .listen('DonatedEvent', (e) => {
+                toast('Thank you for donating!')
+                Inertia.visit('/#breastcancer')
+            })
     }, [])
 
     return (

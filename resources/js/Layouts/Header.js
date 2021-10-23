@@ -227,9 +227,9 @@ export default function Header(props) {
                             <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                                 {navigation.pages.map((page) => (
                                     <div key={page.name} className="flow-root">
-                                        <Link href={page.href} className="-m-2 p-2 block font-medium text-gray-900">
+                                        <a href={page.href} className="-m-2 p-2 block font-medium text-gray-900">
                                             {page.name}
-                                        </Link>
+                                        </a>
                                     </div>
                                 ))}
                             </div>
@@ -393,13 +393,13 @@ export default function Header(props) {
                                     ))}
 
                                     {navigation.pages.map((page) => (
-                                        <Link
+                                        <a
                                             key={page.name}
                                             href={page.href}
                                             className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                                         >
                                             {page.name}
-                                        </Link>
+                                        </a>
                                     ))}
                                 </div>
                             </Popover.Group>

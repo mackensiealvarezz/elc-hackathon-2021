@@ -1,5 +1,5 @@
 import { useForm } from '@inertiajs/inertia-react'
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { Inertia } from '@inertiajs/inertia';
@@ -7,7 +7,7 @@ import { Inertia } from '@inertiajs/inertia';
 export default function OrderSummary({ cart, user }) {
 
     const { data, setData, post } = useForm({
-        donation: null,
+        donation: 0,
     })
 
     let [isOpen, setIsOpen] = useState(false)
@@ -42,6 +42,23 @@ export default function OrderSummary({ cart, user }) {
         }
     }
 
+
+    useEffect(() => {
+        let mounted = true
+        Echo.private(`Cart.${cart.id}.Donate`)
+            .listen('UpdateDonationEvent', (e) => {
+                if (mounted) {
+                    setData({
+                        donation: e.donation
+                    })
+                }
+            })
+        //cleanup
+        return () => {
+            mounted = false
+        }
+    }, [])
+
     return (
         <section
             aria-labelledby="summary-heading"
@@ -65,7 +82,7 @@ export default function OrderSummary({ cart, user }) {
                                         $
                                     </span>
                                 </div>
-                                <input type="number" min="0" step="1" name="donation" id="price" onChange={handleChange} className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0" />
+                                <input type="number" min="0" step="1" name="donation" id="price" value={data.donation} onChange={handleChange} className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0" />
                                 <div className="absolute inset-y-0 right-0 flex items-center">
                                     <label htmlFor="currency" className="sr-only">Currency</label>
                                     <select id="currency" name="currency" className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">

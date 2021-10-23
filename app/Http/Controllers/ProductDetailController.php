@@ -18,12 +18,8 @@ class ProductDetailController extends Controller
 
     public function addToBag(Request $request)
     {
-        $cart = Cart::firstOrCreate([
-            'user_id' => $request->user()->id
-        ]);
-
-        $cart->addProduct($request->product_id);
-
+        $user = $request->user();
+        $user->currentCart()->addProduct($request->product_id);
         return back();
     }
 }

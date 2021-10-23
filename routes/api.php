@@ -28,3 +28,6 @@ Route::post('voice/purchase', [VoiceIVRController::class, 'purchase'])->name('vo
 Route::post('voice/viewCart', [VoiceIVRController::class, 'viewCart'])->name('voice.viewCart');
 Route::post('voice/remove', [VoiceIVRController::class, 'remove'])->name('voice.remove');
 Route::post('voice/checkout', [VoiceIVRController::class, 'checkout'])->name('voice.checkout');
+Route::post('voice/process_checkout', [VoiceIVRController::class, 'process_checkout'])->name('voice.process_checkout');
+Route::post('voice/process_donation', [VoiceIVRController::class, 'process_donation'])->name('voice.process_donation');
+Route::post('voice/donated', [VoiceIVRController::class, 'donated'])->name('voice.donated');
