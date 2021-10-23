@@ -4,23 +4,23 @@ const favorites = [
     {
         id: 1,
         name: 'CAFE ROSE',
-        price: '$32',
+        price: '$263',
         href: route('product', 'CAFE ROSE'),
         imageSrc: 'https://i1.adis.ws/i/tom_ford/T1-CAFE-ROSE_OC_50ML_B?$large$&bg=rgb(255,255,255)',
 
     },
     {
         id: 2,
-        name: 'NEROLI PORTOFINO FORTE',
-        price: '$32',
-        href: route('product', 'NEROLI PORTOFINO FORTE'),
-        imageSrc: 'https://i1.adis.ws/i/tom_ford/T429_OC_50ML_B?$large$&bg=rgb(255,255,255)',
+        name: 'OUD WOOD',
+        price: '$263',
+        href: route('product', 'OUD WOOD'),
+        imageSrc: 'https://i1.adis.ws/i/tom_ford/T1-OUD-WOOD_OC_50ML_B?$pdp_zoom_dsk$&bg=rgb(255,255,255)&bg=rgb(255,255,255)',
 
     },
     {
         id: 3,
         name: 'ROSE PRICK',
-        price: '$36',
+        price: '$368',
         href: route('product', 'ROSE PRICK'),
         imageSrc: 'https://i1.adis.ws/i/tom_ford/T8-ROSE_OC_250ML_B?$large$&bg=rgb(255,255,255)',
 
@@ -29,7 +29,7 @@ const favorites = [
 export default function TrendingProducts() {
     return (
         <section aria-labelledby="favorites-heading">
-            <div className="max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+            <div className="px-4 py-24 mx-auto max-w-7xl sm:py-32 sm:px-6 lg:px-8">
                 <div className="sm:flex sm:items-baseline sm:justify-between">
                     <h2 id="favorites-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
                         Our Favorites
@@ -39,13 +39,13 @@ export default function TrendingProducts() {
                     </Link>
                 </div>
 
-                <div className="mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-3 sm:gap-y-0 sm:gap-x-6 lg:gap-x-8">
+                <div className="grid grid-cols-1 mt-6 gap-y-10 sm:grid-cols-3 sm:gap-y-0 sm:gap-x-6 lg:gap-x-8">
                     {favorites.map((favorite) => (
-                        <div key={favorite.id} className="group relative">
-                            <div className="w-full h-96 rounded-lg overflow-hidden group-hover:opacity-75 sm:h-auto sm:aspect-w-2 sm:aspect-h-3">
+                        <div key={favorite.id} className="relative group">
+                            <div className="w-full overflow-hidden rounded-lg h-96 group-hover:opacity-75 sm:h-auto sm:aspect-w-2 sm:aspect-h-3">
                                 <img
                                     src={favorite.imageSrc}
-                                    className="w-full h-full object-center object-cover"
+                                    className="object-cover object-center w-full h-full"
                                 />
                             </div>
                             <h3 className="mt-4 text-base font-semibold text-gray-900">

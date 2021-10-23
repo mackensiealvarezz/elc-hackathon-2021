@@ -6,14 +6,8 @@ import { useForm } from '@inertiajs/inertia-react'
 import { toast } from 'react-toastify';
 import Layout from '@/Layouts/Layout'
 
-const product = {
 
-    breadcrumbs: [
-        { id: 1, name: 'Travel', href: '#' },
-        { id: 2, name: 'Bags', href: '#' },
-    ],
 
-}
 const reviews = { average: 5, totalCount: 1624 }
 
 function classNames(...classes) {
@@ -31,6 +25,15 @@ const ProductDetail = (props) => {
     const onClickHandler = (e) => {
         e.preventDefault()
         post(route('addToBag'))
+    }
+
+    const product = {
+
+        breadcrumbs: [
+            { id: 1, name: props.product.categories[0][0].toUpperCase() + props.product.categories[0].substring(1), href: '#' },
+            { id: 2, name: 'Product', href: '#' },
+        ],
+
     }
 
 
