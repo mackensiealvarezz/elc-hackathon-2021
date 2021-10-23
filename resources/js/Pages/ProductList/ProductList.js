@@ -9,7 +9,7 @@ import ProductCard from './ProductCard'
 import { Link, useForm } from '@inertiajs/inertia-react'
 import Layout from '@/Layouts/Layout'
 
-const breadcrumbs = [{ id: 1, name: 'Men', href: '#' }]
+const breadcrumbs = [{ id: 1, name: 'Search', href: '#' }]
 const filters = [
     {
         id: 'category',
@@ -83,7 +83,7 @@ const ProductList = (props) => {
     return (
         <>
             <Transition.Root show={mobileFiltersOpen} as={Fragment}>
-                <Dialog as="div" className="fixed inset-0 flex z-40 lg:hidden" onClose={setMobileFiltersOpen}>
+                <Dialog as="div" className="fixed inset-0 z-40 flex lg:hidden" onClose={setMobileFiltersOpen}>
                     <Transition.Child
                         as={Fragment}
                         enter="transition-opacity ease-linear duration-300"
@@ -105,29 +105,29 @@ const ProductList = (props) => {
                         leaveFrom="translate-x-0"
                         leaveTo="translate-x-full"
                     >
-                        <div className="ml-auto relative max-w-xs w-full h-full bg-white shadow-xl py-4 pb-6 flex flex-col overflow-y-auto">
-                            <div className="px-4 flex items-center justify-between">
+                        <div className="relative flex flex-col w-full h-full max-w-xs py-4 pb-6 ml-auto overflow-y-auto bg-white shadow-xl">
+                            <div className="flex items-center justify-between px-4">
                                 <h2 className="text-lg font-medium text-gray-900">Filters</h2>
                                 <button
                                     type="button"
-                                    className="-mr-2 w-10 h-10 p-2 flex items-center justify-center text-gray-400 hover:text-gray-500"
+                                    className="flex items-center justify-center w-10 h-10 p-2 -mr-2 text-gray-400 hover:text-gray-500"
                                     onClick={() => setMobileFiltersOpen(false)}
                                 >
                                     <span className="sr-only">Close menu</span>
-                                    <XIcon className="h-6 w-6" aria-hidden="true" />
+                                    <XIcon className="w-6 h-6" aria-hidden="true" />
                                 </button>
                             </div>
 
                             {/* Filters */}
                             <form className="mt-4">
                                 {filters.map((section) => (
-                                    <Disclosure as="div" key={section.name} className="border-t border-gray-200 pt-4 pb-4">
+                                    <Disclosure as="div" key={section.name} className="pt-4 pb-4 border-t border-gray-200">
                                         {({ open }) => (
                                             <fieldset>
                                                 <legend className="w-full px-2">
-                                                    <Disclosure.Button className="w-full p-2 flex items-center justify-between text-gray-400 hover:text-gray-500">
+                                                    <Disclosure.Button className="flex items-center justify-between w-full p-2 text-gray-400 hover:text-gray-500">
                                                         <span className="text-sm font-medium text-gray-900">{section.name}</span>
-                                                        <span className="ml-6 h-7 flex items-center">
+                                                        <span className="flex items-center ml-6 h-7">
                                                             <ChevronDownIcon
                                                                 className={classNames(open ? '-rotate-180' : 'rotate-0', 'h-5 w-5 transform')}
                                                                 aria-hidden="true"
@@ -135,7 +135,7 @@ const ProductList = (props) => {
                                                         </span>
                                                     </Disclosure.Button>
                                                 </legend>
-                                                <Disclosure.Panel className="pt-4 pb-2 px-4">
+                                                <Disclosure.Panel className="px-4 pt-4 pb-2">
                                                     <div className="space-y-6">
                                                         {section.options.map((option, optionIdx) => (
                                                             <div key={option.value} className="flex items-center">
@@ -146,7 +146,7 @@ const ProductList = (props) => {
                                                                     defaultValue={option.value}
                                                                     type="checkbox"
                                                                     checked={data.categories.includes(option.value) ? true : false}
-                                                                    className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                                                    className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                                                                 />
                                                                 <label
                                                                     htmlFor={`${section.id}-${optionIdx}-mobile`}
@@ -169,8 +169,8 @@ const ProductList = (props) => {
             </Transition.Root>
 
             <div className="border-b border-gray-200">
-                <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <ol role="list" className="flex items-center space-x-4 py-4">
+                <nav aria-label="Breadcrumb" className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    <ol role="list" className="flex items-center py-4 space-x-4">
                         {breadcrumbs.map((breadcrumb) => (
                             <li key={breadcrumb.id}>
                                 <div className="flex items-center">
@@ -181,7 +181,7 @@ const ProductList = (props) => {
                                         viewBox="0 0 6 20"
                                         xmlns="http://www.w3.org/2000/svg"
                                         aria-hidden="true"
-                                        className="h-5 w-auto text-gray-300"
+                                        className="w-auto h-5 text-gray-300"
                                     >
                                         <path d="M4.878 4.34H3.551L.27 16.532h1.327l3.281-12.19z" fill="currentColor" />
                                     </svg>
@@ -197,8 +197,8 @@ const ProductList = (props) => {
                 </nav>
             </div>
 
-            <main className="max-w-2xl mx-auto px-4 lg:max-w-7xl lg:px-8">
-                <div className="border-b border-gray-200 pt-24 pb-10">
+            <main className="max-w-2xl px-4 mx-auto lg:max-w-7xl lg:px-8">
+                <div className="pt-24 pb-10 border-b border-gray-200">
                     <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">Products</h1>
                     <p className="mt-4 text-base text-gray-500">
                         Checkout out the latest releases.
@@ -215,11 +215,11 @@ const ProductList = (props) => {
                             onClick={() => setMobileFiltersOpen(true)}
                         >
                             <span className="text-sm font-medium text-gray-700">Filters</span>
-                            <PlusSmIcon className="flex-shrink-0 ml-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+                            <PlusSmIcon className="flex-shrink-0 w-5 h-5 ml-1 text-gray-400" aria-hidden="true" />
                         </button>
 
                         <div className="hidden lg:block">
-                            <form className="divide-y divide-gray-200 space-y-10">
+                            <form className="space-y-10 divide-y divide-gray-200">
                                 {filters.map((section, sectionIdx) => (
                                     <div key={section.name} className={sectionIdx === 0 ? null : 'pt-10'}>
                                         <fieldset>
@@ -234,7 +234,7 @@ const ProductList = (props) => {
                                                             defaultValue={option.value}
                                                             type="checkbox"
                                                             checked={data.categories.includes(option.value) ? true : false}
-                                                            className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                                                         />
                                                         <label htmlFor={`${section.id}-${optionIdx}`} className="ml-3 text-sm text-gray-600">
                                                             {option.label}
