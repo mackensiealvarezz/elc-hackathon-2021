@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 import Ticker from "react-ticker";
 
@@ -47,14 +48,14 @@ export default function BreastCancer(props) {
                         Breast cancer is now the most commonly diagnosed cancer worldwide, making the need to help find a cure more urgent than ever.
                         Become a donor and together we can rally to help create a breast cancer-free world.
                     </p>
-                    <a
-                        href="/cart"
+                    <Link
+                        href={route('cart')}
                         className="block w-full px-8 py-3 mt-8 text-base font-medium text-gray-900 bg-white border border-transparent rounded-md hover:bg-gray-100 sm:w-auto"
                     >
                         Donate Now
-                    </a>
+                    </Link>
                 </div>
             </div>
-        </section >
+        </section>
     )
 }

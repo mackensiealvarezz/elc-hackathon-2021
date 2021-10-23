@@ -15,7 +15,7 @@ class AddDonorToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('donor')->after('pin')->default(false);
+            $table->boolean('donor')->after('password')->default(false);
         });
     }
 

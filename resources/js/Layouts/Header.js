@@ -122,7 +122,6 @@ const navigation = {
 
 export default function Header(props) {
     const [open, setOpen] = useState(false)
-    const [showPin, setShowPin] = useState(false)
 
     return (
         <Fragment>
@@ -244,10 +243,7 @@ export default function Header(props) {
                                     </div>
                                     <div className="flow-root">
                                         <VoiceChat auth={props.auth} />
-                                        {/* <span className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                            Pin:
-                                            <button className="font-bold" onClick={() => setShowPin(!showPin)} >{showPin ? props.auth.user.pin : '***'}</button>
-                                        </span> */}
+
                                     </div>
                                     <div className="flow-root">
                                         <Link href={route('logout')} method="post" className="-m-2 p-2 block font-medium text-gray-900">
@@ -417,10 +413,7 @@ export default function Header(props) {
                                         </Link>
                                         <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                                         <VoiceChat auth={props.auth} />
-                                        {/* <span className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                            Pin:
-                                            <button className="font-bold" onClick={() => setShowPin(!showPin)} >{showPin ? props.auth.user.pin : '***'}</button>
-                                        </span> */}
+
                                         <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                                         <Link href={route('logout')} method="post" as="button" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                             Log Out

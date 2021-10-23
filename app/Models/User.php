@@ -24,7 +24,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'pin',
         'donor'
     ];
 
@@ -50,10 +49,6 @@ class User extends Authenticatable
     public function makeDonor() {
         $this->update(['donor' => true]);
     }
-
-    // protected $with = ['cart'];
-
-
 
     public function cart()
     {
