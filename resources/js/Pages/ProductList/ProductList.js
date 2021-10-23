@@ -31,7 +31,7 @@ const filters = [
             { value: 'concealer', label: 'Concealer' },
             { value: 'foundation', label: 'Foundation' },
             { value: 'lip_color', label: 'Lip Color' },
-            { value: 'lip_laquer', label: 'Lip Laquer' },
+            { value: 'lip_lacquer', label: 'Lip Lacquer' },
             { value: 'lip_gloss', label: 'Lip Gloss' },
             { value: 'beard', label: 'Beard' },
             { value: 'body', label: 'Body' },
