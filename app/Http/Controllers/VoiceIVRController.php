@@ -118,7 +118,7 @@ class VoiceIVRController extends Controller
 
                         ],
                         "on_complete" => [
-                            "redirect" => "https://8693-108-50-216-233.ngrok.io/api/voice/process_categories"
+                            "redirect" => "https://elc.mackensiealvarez.com/api/voice/process_categories"
                         ]
                     ]
                 ]
