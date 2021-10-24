@@ -24,4 +24,9 @@ class LandingPageController extends Controller
             'donors' => array_chunk($names,3)
         ]);
     }
+
+    public function instructions()
+    {
+        return Inertia::render('Instructions/InstructionsPage');
+    }
 }
