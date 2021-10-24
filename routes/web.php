@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/instructions', [LandingPageController::class, 'instructions'])->name('instructions');
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 Route::get('/product/{name}', [ProductDetailController::class, 'index'])->name('product');
 Route::post('/addToBag', [ProductDetailController::class, 'addToBag'])->middleware(['auth', 'verified'])->name('addToBag');
